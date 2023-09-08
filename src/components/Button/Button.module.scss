@@ -1,11 +1,11 @@
 @import 'src/app/styles/vars';
 
 $button-border-width: 2px;
+$button-box-shadow-sizes: 0 20px 80px -20px;
 
 .Button {
-  //@include text-body-m-medium;
   @include text-body-m-regular;
-  @include transition(box-shadow, transform, border-color);
+  @include transition(box-shadow, transform, border-color, background-color);
 
   position: relative;
   display: flex;
@@ -29,10 +29,16 @@ $button-border-width: 2px;
     outline: none;
   }
 
+  &.Button_size_large:hover,
+  &.Button_size_large.Button_hovered,
+  &.Button_size_large_x:hover,
+  &.Button_size_large_x.Button_hovered, {
+    //transform: translate(0, -3px);
+  }
+
   &:hover,
   &.Button_hovered {
-    transform: translate(0, -3px);
-
+    //transform: translate(0, -3px);
   }
 }
 
@@ -61,6 +67,10 @@ $button-border-width: 2px;
   text-align: center;
 }
 
+.Button__loader {
+  color: $color-text-primary;
+}
+
 .Button__loader,
 .Button__contentLeft,
 .Button__contentRight {
@@ -75,6 +85,12 @@ $button-border-width: 2px;
 .Button__loader,
 .Button__contentRight {
   margin-left: $spacing-small-3x;
+}
+
+.Button_size_small_x {
+  height: 32px;
+  min-height: 32px;
+  font-size: $font-size-14;
 }
 
 .Button_size_small {
@@ -93,29 +109,44 @@ $button-border-width: 2px;
   min-height: 48px;
 }
 
+.Button_size_large_x {
+  @include text-body-l-regular;
+  height: 64px;
+  min-height: 64px;
+}
+
 .Button_variant_primary {
-  background-color: $color-brand-primary;
+  background-color: $color-button-primary-default-fill;
   color: $color-text-quaternary;
 
   &.Button_hovered,
   &:hover {
-    //background-color: $color-brand-hover;
-    box-shadow: 0 20px 80px -10px $color-brand-primary;
+    background-color: $color-button-primary-hover-fill;
+    //box-shadow: #{$button-box-shadow-sizes} $color-brand-primary;
+  }
+
+  &:active {
+    background-color: $color-button-primary-pressed-fill;
   }
 
   &.Button_disabled {
-    color: $color-text-tertiary;
+    //color: $color-text-tertiary;
     background-color: $color-brand-disabled;
   }
 }
 
 .Button_variant_secondary {
-  background-color: $color-background-secondary;
-  color: $color-text-primary;
+  background-color: $color-button-secondary-default-fill;
+  color: $color-text-brand;
 
   &.Button_hovered,
   &:hover {
-    //background-color: $color-on-surface-dark-400;
+    //box-shadow: #{$button-box-shadow-sizes} $color-background-dark-400;
+    background-color: $color-button-secondary-hover-fill;
+  }
+
+  &:active {
+    background-color: $color-button-secondary-pressed-fill;
   }
 
   &.Button_disabled {

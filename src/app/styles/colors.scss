@@ -9,7 +9,8 @@
 
 // синий
 $color-text: #010819;
-$color-background: #e6edfe;
+//$color-background: #e6edfe;
+$color-background: #fafafa;
 $color-primary: #0647e0;
 $color-secondary: #cddcfe;
 $color-accent: #064ff9;
@@ -30,24 +31,42 @@ $color-accent: #064ff9;
 
 $color-background-primary: $color-background;
 $color-background-secondary: $color-secondary;
-$color-background-dark-100: darken($color-background, 1%);
-$color-background-dark-200: darken($color-background, 2%);
-$color-background-dark-300: darken($color-background, 3%);
-$color-background-dark-400: darken($color-background, 4%);
+$color-background-dark-100: darken($color-background, 3%);
+$color-background-dark-200: darken($color-background, 6%);
+$color-background-dark-300: darken($color-background, 12%);
+$color-background-dark-400: darken($color-background, 24%);
+$color-background-dark-500: darken($color-background, 48%);
 $color-background-accent: $color-accent;
 
 $color-text-primary: $color-text;
-$color-text-secondary: color.adjust($color-background, $blackness: 100%);
-$color-text-tertiary: color.adjust($color-background, $blackness: 70%);
+$color-text-secondary: darken($color-background, 40%);
+$color-text-tertiary: darken($color-background, 60%);
 $color-text-quaternary: $color-background;
 $color-text-brand: $color-primary;
 $color-text-disabled: color.adjust($color-text, $lightness: 40%);
 
 $color-brand-primary: $color-primary;
-$color-brand-hover: color.adjust($color-primary, $blackness: 2%);
-$color-brand-disabled: color.adjust($color-primary, $lightness: 2%);
+$color-brand-hover: darken($color-brand-primary, 3%);
+$color-brand-active: darken($color-brand-primary, 6%);
+$color-brand-disabled: color.adjust($color-brand-primary, $lightness: 30%);
 
-$color-border: color.invert($color-background);
+$color-border-default: $color-background-dark-300;
+$color-border-hover: lighten($color-brand-primary, 30%);
+$color-border-active: $color-brand-primary;
+
+$color-divider-dark: $color-border-default;
+$color-divider-darker: darken($color-border-default, 10%);
+
+// Button
+$color-button-primary-default-fill: $color-brand-primary;
+$color-button-primary-hover-fill: $color-brand-hover;
+$color-button-primary-pressed-fill: $color-brand-active;
+$color-button-primary-disabled-fill: $color-brand-disabled;
+
+$color-button-secondary-default-fill: $color-background-secondary;
+$color-button-secondary-hover-fill: darken($color-secondary, 3%);
+$color-button-secondary-pressed-fill: darken($color-secondary, 6%);
+$color-button-secondary-disabled-fill: lighten($color-secondary, 3%);
 
 //@debug $color-border;
 

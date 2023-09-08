@@ -3,10 +3,11 @@
 .Divider {
   margin: 0;
   border: 0;
-  background-color: $color-on-surface-dark-300;
+  background-color: $color-divider-dark;
 }
 
 .Divider_variant_horizontal {
+  width: 100%;
   height: 1px;
 }
 
@@ -15,10 +16,10 @@
   height: auto;
 }
 
-//.Divider_color_light {
-//  background-color: $color-on-surface-light-200;
-//}
-//
-//.Divider_color_dark {
-//  background-color: $color-on-surface-dark-300;
-//}
+.Divider_color_light {
+  background-color: $color-background-secondary;
+}
+
+.Divider_color_dark {
+  background-color: $color-divider-dark;
+}

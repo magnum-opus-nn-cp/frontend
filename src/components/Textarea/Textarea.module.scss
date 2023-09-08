@@ -2,29 +2,25 @@
 
 .Input {
   @include text-body-m-regular;
-  @include transition(border-color, box-shadow);
+  @include transition(border-color);
 
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 50px;
-  max-height: 300px;
   padding: 15px $spacing-small-x;
   color: $color-text-primary;
   overflow: hidden;
-  border: 1px solid transparent;
+  border: 1px solid $color-border-default;
   border-radius: $radius-small;
-  background-color: $color-on-surface-dark-400;
+  background-color: $color-background-primary;
   cursor: text;
   box-sizing: border-box;
 
   overflow-y: auto;
   word-wrap: break-word;
 
-  @include scrollbar;
-
-  &:hover {
-    box-shadow: $shadow-hover;
+  &:hover:not(.Input_focus, .Input_error) {
+    border-color: $color-border-hover;
   }
 }
 
@@ -33,7 +29,7 @@
 }
 
 .Input_focus {
-  border-color: $color-brand-primary;
+  border-color: $color-border-active;
 }
 
 .Input_disabled {
@@ -56,8 +52,8 @@
   min-width: 0;
   height: 100%;
 
-  resize: none;
-  white-space: break-spaces;
+  //resize: none;
+  //white-space: break-spaces;
 
   &:placeholder-shown + .Input__clear {
     display: none;
@@ -86,7 +82,7 @@
 }
 
 .Input__input::placeholder {
-  color: $color-text-tertiary;
+  color: $color-text-secondary;
   opacity: 1;
 }
 

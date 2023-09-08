@@ -34,7 +34,7 @@ export interface IDividerProps extends IntrinsicPropsWithoutRef<'hr'> {
 
 export function Divider({
   className,
-  variant = DividerVariant.vertical,
+  variant = DividerVariant.horizontal,
   color = DividerColor.dark,
   innerRef,
   ...props

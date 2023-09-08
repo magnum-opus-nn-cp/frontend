@@ -1,0 +1,15 @@
+@import 'src/app/styles/vars';
+
+.Upload {
+  width: fit-content;
+}
+
+.Upload__icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.Upload__input {
+  display: none;
+}

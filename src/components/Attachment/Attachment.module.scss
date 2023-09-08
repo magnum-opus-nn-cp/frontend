@@ -1,0 +1,32 @@
+@import 'src/app/styles/vars';
+
+.Attachment {
+  @include flex-col-middle;
+  cursor: pointer;
+}
+
+.Attachment__text {
+  @include text-programming-code-regular;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+}
+
+.Attachment__text_hidden {
+  opacity: 0;
+}
+
+.Attachment__text_x {
+  top: -$line-height-16 / 2;
+  font-size: 16px;
+  line-height: 0;
+  overflow: visible;
+}
+
+.Attachment__icon {
+  width: 64px;
+  height: 88px;
+  margin-bottom: $spacing-small-4x;
+}

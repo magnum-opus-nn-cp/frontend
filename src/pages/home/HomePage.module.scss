@@ -1,11 +1,12 @@
 @import 'src/app/styles/vars';
 
+$textarea-height: 192px;
+
 .HomePage {
-  //padding: $spacing-small-x;
+  padding-bottom: $spacing-medium-x;
 }
 
 .HomePage__title {
-  //@include text-programming-code-regular;
   font-family: $font-family-ibm-plex-mono, $font-family-mono;
   margin-bottom: $spacing-small-x;
 }
@@ -17,17 +18,89 @@
 }
 
 .HomePage__box {
-  @include flex-col-middle;
-  background-color: $color-background-dark-300;
+  @include flex-col;
+  background-color: $color-background-dark-100;
   border-radius: $radius-large;
   padding: $spacing-medium;
 }
 
+.HomePage__dropBox {
+  @include flex-col;
+  position: relative;
+}
+
+.HomePage__dropBoxPlaceholder {
+  position: absolute;
+  top: -$spacing-medium;
+  left: -$spacing-medium;
+  width: calc(100% + $spacing-medium * 2);
+  height: calc(100% + $spacing-medium * 2);
+  visibility: hidden;
+  background-color: rgba($color-background-accent, 0.6);
+  border-radius: $radius-small;
+  display: flex;
+}
+
+.HomePage__dropBoxPlaceholderIcon {
+  width: 144px;
+  height: 144px;
+  color: $color-background-primary;
+  margin: auto;
+}
+
+.HomePage__dropBox_hidden {
+  .HomePage__dropBoxPlaceholder {
+    visibility: visible;
+  }
+}
+
 .HomePage__button {
-  margin-bottom: $spacing-small-2x;
-  height: 64px;
+  margin-left: auto;
 }
 
 .HomePage__buttonHint {
   color: $color-text-tertiary;
+}
+
+.HomePage__divider {
+  margin: $spacing-small 0;
+}
+
+.HomePage__textarea, .HomePage__filesContainer {
+  width: 100%;
+  margin-bottom: $spacing-small-3x;
+  min-height: $textarea-height;
+}
+
+.HomePage__filesContainer {
+  @include flex-middle;
+  flex-wrap: wrap;
+  gap: $spacing-small-x;
+  border: 1px solid $color-border-default;
+  border-radius: $radius-small;
+  background-color: $color-background-primary;
+  padding: $spacing-small-x;
+}
+
+.HomePage__uploadContainer {
+  width: fit-content;
+  //padding-top: $spacing-small-3x;
+  //border-top: 1px dashed $color-divider-darker;
+}
+
+.HomePage__uploadButton {
+  margin-right: auto;
+  //margin-bottom: $spacing-small-4x;
+}
+
+.HomePage__uploadHint {
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-small-3x;
+}
+
+.HomePage__orHint {
+  margin-bottom: $spacing-small-3x;
+  letter-spacing: 0.06rem;
+  //color: $color-text-tertiary;
+  //margin-left: 70px;
 }

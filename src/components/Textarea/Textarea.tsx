@@ -65,10 +65,10 @@ const TextareaForwardedRef = React.forwardRef<HTMLDivElement, TextAreaProps>(
     const delegateProps = useDelegateFocus<HTMLDivElement, HTMLInputElement>(inputRef, { onClick });
     const { focused, ...focusProps } = useFocus({ ...inputProps, ...registration });
 
-    if (inputRef.current) {
-      inputRef.current.style.height = '1px';
-      inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
-    }
+    // if (inputRef.current) {
+    //   inputRef.current.style.height = '1px';
+    //   inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
+    // }
 
     return (
       <div
@@ -94,16 +94,6 @@ const TextareaForwardedRef = React.forwardRef<HTMLDivElement, TextAreaProps>(
           ref={composeRefs(inputRef, inputRefProp, registration?.ref)}
           {...inputProps}
           {...focusProps}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          onInput={(e) => {
-            setTimeout(() => {
-              if (inputRef.current) {
-                inputRef.current.style.height = '1px';
-                inputRef.current.style.height = inputRef.current.scrollHeight + 'px';
-              }
-            });
-          }}
         />
       </div>
     );

@@ -1,12 +1,15 @@
 import React, { ElementType, useMemo } from 'react';
 import clsx from 'clsx';
+import { PolyExtends } from '../../utils/types';
+import { Loader } from '../Loader';
 import s from './Button.module.scss';
-import {PolyExtends} from '../../utils/types';
 
 export enum ButtonSize {
+  small_x = 'small_x',
   small = 'small',
   medium = 'medium',
-  large = 'large'
+  large = 'large',
+  large_x = 'large_x'
 }
 
 export enum ButtonVariant {
@@ -138,7 +141,7 @@ export function Button<ComponentType extends ElementType = ButtonDefaultComponen
       <div className={clsx(s.Button__content, classes?.content)}>
         <div className={classes?.text}>{children}</div>
 
-        {/*{isLoading && <Loader className={s.Button__loader} size={LoaderSize.small} />}*/}
+        {isLoading && <Loader className={s.Button__loader} />}
       </div>
     </Component>
   );
