@@ -1,16 +1,17 @@
 @import 'src/app/styles/vars';
 
 .Loader {
+  --loader-size: 20px;
   display: flex;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  color: $color-on-surface-dark-100;
 }
 
 .LoaderIcon {
   width: 100%;
   height: 100%;
-  color: $color-on-surface-dark-100;
   animation: spinner 0.7s linear infinite;
 }
 

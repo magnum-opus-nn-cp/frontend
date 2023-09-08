@@ -2,13 +2,19 @@
 
 .DefaultLayout {
   @include grid-for(desktop-small);
+  min-height: 100vh;
 
   @include tablet-down {
     @include grid-for(tablet-large);
   }
+
+  @include mobile-down {
+    @include grid-for(mobile-small);
+  }
 }
 
 .DefaultLayout__container {
+  @include flex-col;
   grid-column: 3 / span 8;
 
   @include tablet-down {
@@ -17,14 +23,27 @@
 }
 
 .DefaultLayout__header {
-  @include flex-middle;
-  column-gap: $spacing-medium;
-  height: $header-height;
+  display: grid;
+  gap: $spacing-small-4x $spacing-medium;
   margin-bottom: $spacing-medium-x;
+
+  @include mobile-up {
+    grid-template: 'mopus cp cbr'/ auto 1fr auto;
+    height: $header-height;
+    align-items: center;
+  }
+
+  @include mobile-down {
+    grid-template:
+      'mopus cp'
+      'mopus cbr'
+      / 1fr auto;
+    align-items: center;
+  }
 }
 
 .DefaultLayout__logo {
-  width: auto;
+  width: fit-content;
   height: 40px;
 }
 
@@ -33,8 +52,33 @@
   background-color: $color-accent;
   padding: $spacing-small-2x;
   margin-right: auto;
+  grid-area: mopus;
+  height: $header-height;
+  width: fit-content;
+}
+
+.DefaultLayout__logo_cp {
+  grid-area: cp;
+
+  @include mobile-up {
+    justify-self: end;
+  }
+
+  @include mobile-down {
+    height: 24px;
+    align-self: end;
+  }
 }
 
 .DefaultLayout__logo_cbr {
   height: 44px;
+  grid-area: cbr;
+
+  @include mobile-down {
+    height: 28px;
+  }
+}
+
+.DefaultLayout__content {
+  height: 100%;
 }

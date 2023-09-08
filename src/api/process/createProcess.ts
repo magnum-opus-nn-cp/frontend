@@ -6,7 +6,7 @@ import { PROCESS_API_URL } from './urlKeys';
 import { QUERY_KEY_PROCESSES } from './queryKeys';
 
 export type CreateProcessDTO = Partial<Pick<TextDescriptor, 'text'>> & {
-  files?: [];
+  files?: File[];
 };
 
 export type CreateProcessResponse = {
@@ -14,7 +14,33 @@ export type CreateProcessResponse = {
 };
 
 export const createProcess = (data: CreateProcessDTO): Promise<CreateProcessResponse> => {
-  return axios.post(`${PROCESS_API_URL}/`, data);
+  const isForm = data.files?.length !== 0;
+
+  console.log(data);
+  let inputData: any;
+  if (isForm) {
+    inputData = new FormData();
+
+    if (data.text) {
+      inputData.append('text', `${data.text}`);
+    }
+
+    data.files?.forEach((file, index) => {
+      inputData.append(`file_${index + 1}`, file);
+    });
+  } else {
+    inputData = {
+      text: data.text
+    };
+  }
+
+  return axios.post(`${PROCESS_API_URL}/`, inputData, {
+    headers: isForm
+      ? {
+          'Content-Type': 'multipart/form-data'
+        }
+      : {}
+  });
 };
 
 type UseCreateProcessOptions = {

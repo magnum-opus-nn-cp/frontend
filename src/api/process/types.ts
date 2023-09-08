@@ -5,6 +5,6 @@ export type TextDescriptor = {
 
 export type ProcessDescriptor = {
   texts: TextDescriptor[];
-  done: number;
-  count: number;
+  current: number;
+  total: number;
 };

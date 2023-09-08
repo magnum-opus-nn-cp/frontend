@@ -3,6 +3,7 @@
 .Attachment {
   @include flex-col-middle;
   cursor: pointer;
+  width: 100px;
 }
 
 .Attachment__text {

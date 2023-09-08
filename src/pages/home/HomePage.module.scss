@@ -3,7 +3,9 @@
 $textarea-height: 192px;
 
 .HomePage {
+  @include flex-col;
   padding-bottom: $spacing-medium-x;
+  height: 100%;
 }
 
 .HomePage__title {
@@ -22,6 +24,11 @@ $textarea-height: 192px;
   background-color: $color-background-dark-100;
   border-radius: $radius-large;
   padding: $spacing-medium;
+
+  @include mobile-down {
+    padding: 0;
+    background-color: transparent;
+  }
 }
 
 .HomePage__dropBox {
@@ -54,8 +61,10 @@ $textarea-height: 192px;
   }
 }
 
-.HomePage__button {
-  margin-left: auto;
+.HomePage__submitButton {
+  @include mobile-up {
+    margin-left: auto;
+  }
 }
 
 .HomePage__buttonHint {
@@ -80,17 +89,18 @@ $textarea-height: 192px;
   border-radius: $radius-small;
   background-color: $color-background-primary;
   padding: $spacing-small-x;
+
+  @include mobile-down {
+    justify-content: center;
+  }
 }
 
 .HomePage__uploadContainer {
   width: fit-content;
-  //padding-top: $spacing-small-3x;
-  //border-top: 1px dashed $color-divider-darker;
 }
 
 .HomePage__uploadButton {
   margin-right: auto;
-  //margin-bottom: $spacing-small-4x;
 }
 
 .HomePage__uploadHint {
@@ -101,6 +111,21 @@ $textarea-height: 192px;
 .HomePage__orHint {
   margin-bottom: $spacing-small-3x;
   letter-spacing: 0.06rem;
-  //color: $color-text-tertiary;
-  //margin-left: 70px;
+}
+
+.HomePage__loaderContainer {
+  @include flex-col-middle;
+  justify-content: center;
+  row-gap: $spacing-small-4x;
+  height: 100%;
+}
+
+.HomePage__loader {
+  --loader-size: 96px;
+  color: $color-background-secondary !important;
+}
+
+.HomePage__loaderText {
+  @include text-programming-code-regular;
+  font-size: $font-size-16;
 }
