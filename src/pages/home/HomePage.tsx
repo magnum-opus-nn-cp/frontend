@@ -90,6 +90,7 @@ export const HomePage: ReactFCC = () => {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
+      setValue('text', '');
       setValue('files', [...currentFiles, ...acceptedFiles]);
     },
     [currentFiles, setValue]
