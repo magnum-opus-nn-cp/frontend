@@ -1,0 +1,12 @@
+@import 'src/app/styles/vars';
+
+.ChatFormSelect {
+  @include flex-col;
+  align-items: flex-start;
+  gap: $spacing-small;
+}
+
+.ChatFormSelect__items {
+  @include flex-col;
+  gap: $spacing-small-3x;
+}

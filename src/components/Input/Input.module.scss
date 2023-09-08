@@ -1,0 +1,130 @@
+@import 'src/app/styles/vars';
+
+.Input {
+  @include text-body-m-regular;
+  @include transition(border-color, box-shadow);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 $spacing-small-x;
+  color: $color-text-primary;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: $radius-small;
+  background-color: $color-on-surface-dark-400;
+  cursor: text;
+  box-sizing: border-box;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+  }
+}
+
+.Input_error {
+  border-color: $color-system-error;
+}
+
+.Input_focus {
+  border-color: $color-brand-primary;
+}
+
+.Input_disabled {
+  color: $color-text-tertiary;
+  border-color: transparent;
+  background: $color-on-surface-dark-300;
+  cursor: default;
+
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.Input__input {
+  @include reset-default-input;
+  @include remove-autofill-style;
+
+  position: relative;
+  flex-grow: 1;
+  min-width: 0;
+  height: 100%;
+
+  &:placeholder-shown + .Input__clear {
+    display: none;
+  }
+
+  &[type='number'] {
+    appearance: textfield;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    appearance: none;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    caret-color: $color-text-primary;
+    -webkit-text-fill-color: $color-text-primary;
+  }
+}
+
+.Input__input_disabled {
+  cursor: default;
+}
+
+.Input__input::placeholder {
+  color: $color-text-tertiary;
+  opacity: 1;
+}
+
+.Input__icon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  max-height: 100%;
+  color: $color-on-surface-light-300;
+}
+
+.Input__icon_active {
+  @include transition(color);
+
+  cursor: pointer;
+
+  &:hover {
+    color: $color-on-surface-light-200;
+  }
+}
+
+.Input__icon_left {
+  justify-content: flex-start;
+  margin-right: $spacing-small-3x;
+  margin-left: -$spacing-small-3x;
+}
+
+.Input__icon_right {
+  justify-content: flex-end;
+  margin-left: $spacing-small-3x;
+
+  &:last-child {
+    margin-right: -$spacing-small-3x;
+  }
+}
+
+.Input__icon_clear {
+  @include transition(color);
+
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-on-surface-light-200;
+  }
+}
+
+.Input_disabled .Input__icon_clear {
+  pointer-events: none;
+}

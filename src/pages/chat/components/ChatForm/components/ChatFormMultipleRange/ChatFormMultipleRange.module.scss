@@ -1,0 +1,20 @@
+@import 'src/app/styles/vars';
+
+.ChatFormMultipleRange {
+  @include flex-col;
+  max-width: unset;
+  align-items: stretch;
+  width: 100%;
+  margin: 0 auto;
+  gap: $spacing-small;
+}
+
+.ChatFormMultipleRange__items {
+  @include flex-col;
+  gap: $spacing-small;
+  flex: 1;
+}
+
+.ChatFormMultipleRange__button {
+  width: 100%;
+}

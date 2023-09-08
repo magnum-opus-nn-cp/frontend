@@ -1,0 +1,25 @@
+@import 'src/app/styles/vars';
+
+.Loader {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+
+.LoaderIcon {
+  width: 100%;
+  height: 100%;
+  color: $color-on-surface-dark-100;
+  animation: spinner 0.7s linear infinite;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

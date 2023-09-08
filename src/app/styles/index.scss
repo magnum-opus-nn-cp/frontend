@@ -1,0 +1,35 @@
+@import './vars';
+@import './fonts';
+
+html {
+  background-color: $color-background-primary;
+  color: $color-text-primary;
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-16;
+  line-height: $line-height-20;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

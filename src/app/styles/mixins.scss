@@ -1,0 +1,220 @@
+@use 'sass:list';
+
+/* positions */
+
+@mixin position-absolute-full-screen {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* size */
+
+@mixin size($size) {
+  min-width: $size;
+  max-width: $size;
+  min-height: $size;
+  max-height: $size;
+}
+
+/* placeholder */
+
+@mixin placeholder {
+  &::placeholder {
+    @content;
+  }
+}
+
+/* buttons */
+
+@mixin reset-button {
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 0;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  text-transform: none;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  text-shadow: none;
+  font: inherit;
+  line-height: inherit;
+  cursor: default;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin reset-default-input {
+  padding: unset;
+  border: none;
+
+  &:focus {
+    outline: none;
+    outline-offset: initial;
+  }
+}
+
+/* Хак для того, чтобы убрать браузерные autofill стили */
+@mixin remove-autofill-style {
+  &:-webkit-autofill {
+    /* stylelint-disable-next-line */
+    -webkit-background-clip: text;
+  }
+}
+
+/* links */
+
+@mixin link-reset {
+  all: unset;
+}
+
+@mixin focus-visible {
+  /* stylelint-disable-next-line */
+  &:global(.focus-visible) {
+    @content;
+  }
+}
+
+@mixin line-clamp($n) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $n;
+  -webkit-box-orient: vertical;
+}
+
+@mixin hide-default-input {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+/* stylelint-disable order/order */
+
+@mixin transition($properties...) {
+  $declarations: ();
+
+  @each $declaration in $properties {
+    $duration: 0.2s;
+    $delay: false;
+    $timing-function: ease;
+    $property: all;
+
+    @if type-of($declaration) == 'map' {
+      $duration: if(map_get($declaration, 'duration'), #{map_get($declaration, 'duration')}, $duration);
+      $delay: if(map_get($declaration, 'delay'), #{map_get($declaration, 'delay')}, $delay);
+      $timing-function: if(
+        map_get($declaration, 'timing-function'),
+        #{map_get($declaration, 'timing-function')},
+        $timing-function
+      );
+      $property: if(map_get($declaration, 'property'), #{map_get($declaration, 'property')}, $property);
+    } @else {
+      $property: $declaration;
+    }
+
+    $delay-value: if($delay, ' ' + $delay, '');
+    $declarations: list.append(
+      $declarations,
+      #{$property + ' ' + $duration + $delay-value + ' ' + $timing-function},
+      comma
+    );
+  }
+
+  transition: $declarations;
+}
+
+/* stylelint-enable order/order */
+
+@mixin flex {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+@mixin flex-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-middle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-col-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin text-overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+/* scrollbar */
+
+$scrollbar-width: 12px;
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: $scrollbar-width;
+    height: $scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 6px;
+    background-color: $color-on-surface-light-400;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $color-on-surface-light-300;
+  }
+}
+
+@mixin hide-scrollbar {
+  overflow-y: auto;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+}

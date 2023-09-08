@@ -1,0 +1,69 @@
+@import 'src/app/styles/vars';
+
+.BaseCheckboxIcon {
+  @include transition(border, background-color);
+
+  position: relative;
+  display: flex;
+  flex: 0 0 16px;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid $color-on-surface-light-300;
+  border-radius: $radius-small;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.BaseCheckboxIcon__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+}
+
+.BaseCheckboxIcon__icon > * {
+  @include transition(opacity, color);
+
+  color: $color-on-surface-light-100;
+  opacity: 0;
+}
+
+.BaseCheckboxIcon__icon_visible > * {
+  opacity: 1;
+}
+
+.BaseCheckboxIcon_disabled {
+  color: $color-accent-blue-100;
+  border-color: $color-accent-blue-300;
+}
+
+.BaseCheckboxIcon_checked {
+  border-color: transparent;
+  background-color: $color-accent-blue-200;
+
+  &.BaseCheckboxIcon_disabled {
+    background-color: $color-accent-blue-300;
+  }
+}
+
+.BaseCheckboxIcon_radio {
+  border-radius: 50%;
+
+  &.BaseCheckboxIcon_checked {
+    border: 4px solid $color-accent-blue-200;
+    background-color: $color-on-surface-light-100;
+  }
+
+  &.BaseCheckboxIcon_disabled {
+    border-color: $color-accent-blue-300;
+  }
+
+  &.BaseCheckboxIcon_checked.BaseCheckboxIcon_disabled {
+    background-color: $color-accent-blue-100;
+  }
+}

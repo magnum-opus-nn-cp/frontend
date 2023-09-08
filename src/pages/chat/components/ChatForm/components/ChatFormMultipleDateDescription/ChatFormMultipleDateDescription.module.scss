@@ -1,0 +1,38 @@
+@import 'src/app/styles/vars';
+
+.ChatFormMultipleDateDescription {
+  @include flex-col;
+  gap: $spacing-small;
+}
+
+.ChatFormMultipleDateDescription__items {
+  @include flex-col;
+  gap: $spacing-small;
+}
+
+.ChatFormMultipleDateDescription__group {
+  @include flex-col;
+  align-items: flex-end;
+  gap: $spacing-small-3x;
+}
+
+.ChatFormMultipleDateDescription__input {
+  width: 100%;
+}
+
+.ChatFormMultipleDateDescription__textarea {
+  width: 100%;
+}
+
+.ChatFormMultipleDateDescription__buttons {
+  @include flex;
+  gap: $spacing-small-3x;
+}
+
+.ChatFormMultipleDateDescription__hint {
+  white-space: pre-wrap;
+}
+
+.ChatFormMultipleDateDescription__itemName {
+  align-self: flex-start;
+}

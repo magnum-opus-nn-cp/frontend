@@ -1,0 +1,40 @@
+@import 'src/app/styles/vars';
+
+.DefaultLayout {
+  @include grid-for(desktop-small);
+
+  @include tablet-down {
+    @include grid-for(tablet-large);
+  }
+}
+
+.DefaultLayout__container {
+  grid-column: 3 / span 8;
+
+  @include tablet-down {
+    grid-column: 1 / -1;
+  }
+}
+
+.DefaultLayout__header {
+  @include flex-middle;
+  column-gap: $spacing-medium;
+  height: $header-height;
+  margin-bottom: $spacing-medium-x;
+}
+
+.DefaultLayout__logo {
+  width: auto;
+  height: 40px;
+}
+
+.DefaultLayout__logoMopusContainer {
+  border-radius: 0 0 $radius-large $radius-large;
+  background-color: $color-accent;
+  padding: $spacing-small-2x;
+  margin-right: auto;
+}
+
+.DefaultLayout__logo_cbr {
+  height: 44px;
+}

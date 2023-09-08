@@ -1,0 +1,81 @@
+@import 'src/app/styles/vars';
+
+.Checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  user-select: none;
+  cursor: pointer;
+
+  &,
+  &:focus {
+    outline: none;
+  }
+}
+
+.Checkbox__input {
+  @include hide-default-input;
+}
+
+.Checkbox__label {
+  @include text-caption-m-regular;
+  @include transition(color);
+
+  display: inline-flex;
+  margin-left: $spacing-small-3x;
+  vertical-align: middle;
+  color: $color-text-primary;
+}
+
+.Checkbox__icon {
+  &::before {
+    @include transition(border-color);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    content: '';
+    border: 2px solid transparent;
+    border-radius: $radius-medium;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.Checkbox__input:focus-visible + .Checkbox__icon {
+  &::before {
+    border-color: $color-brand-hover;
+  }
+}
+
+.Checkbox:hover .Checkbox__icon {
+  border-color: $color-accent-blue-100;
+}
+
+.Checkbox_disabled {
+  cursor: default;
+  pointer-events: none;
+
+  .Checkbox__label {
+    color: $color-text-tertiary;
+  }
+}
+
+.Checkbox_checked {
+  &:hover {
+    .Checkbox__icon:not(.Checkbox__icon_radio) {
+      background-color: $color-accent-blue-100;
+    }
+
+    .Checkbox__icon_radio {
+      border-color: $color-accent-blue-100;
+    }
+  }
+}
+
+.Checkbox_radio.Checkbox_checked.Checkbox_disabled:hover .BaseCheckboxIcon_radio {
+  border: 6px solid brown;
+  background-color: transparent;
+}

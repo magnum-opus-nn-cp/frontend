@@ -1,0 +1,17 @@
+@import 'src/app/styles/vars';
+
+.Heading_size_h1 {
+  @include text-header-h1;
+}
+
+.Heading_size_h2 {
+  @include text-header-h2;
+}
+
+.Heading_size_h3 {
+  @include text-header-h3;
+}
+
+.Heading_size_h4 {
+  @include text-header-h4;
+}

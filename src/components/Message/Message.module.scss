@@ -1,0 +1,29 @@
+@import 'src/app/styles/vars';
+
+//$message-radius: $radius-large;
+$message-radius: $radius-large-xx;
+
+.Message {
+  @include text-body-l-regular;
+
+  padding: $spacing-small-x;
+  box-shadow: $shadow-short;
+  white-space: pre-wrap;
+}
+
+.Message_variant_primary {
+  background-color: $color-brand-primary;
+}
+
+.Message_variant_secondary {
+  background-color: $color-on-surface-dark-400;
+  color: #d0d1d5;
+}
+
+.Message_type_right {
+  border-radius: $message-radius $message-radius 0 $message-radius;
+}
+
+.Message_type_left {
+  border-radius: $message-radius $message-radius $message-radius 0;
+}

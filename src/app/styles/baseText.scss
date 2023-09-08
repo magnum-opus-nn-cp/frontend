@@ -1,0 +1,160 @@
+$font-family-default: system-ui, /* macOS 10.11-10.12 */ -apple-system, /* Windows 6+ */ 'Segoe UI',
+  /* Android 4+ */ 'Roboto', /* Ubuntu 10.10+ */ 'Ubuntu', /* Gnome 3+ */ 'Cantarell', /* KDE Plasma 5+ */ 'Noto Sans',
+  /* fallback */ sans-serif, /* macOS emoji */ 'Apple Color Emoji', /* Windows emoji */ 'Segoe UI Emoji',
+  /* Windows emoji */ 'Segoe UI Symbol', /* Linux emoji */ 'Noto Color Emoji';
+
+// Моноширинный набор шрифтов.
+$font-family-mono: 'Menlo', 'Consolas', 'Roboto Mono', 'Ubuntu Monospace', 'Noto Mono', 'Oxygen Mono', 'Liberation Mono',
+monospace, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-family-raleway: 'Raleway';
+$font-family-inter: 'Inter';
+$font-family-ibm-plex-mono: 'IBM Plex Mono';
+
+$font-size-10: 10px;
+$font-size-12: 12px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$font-size-18: 18px;
+$font-size-24: 24px;
+$font-size-32: 32px;
+$font-size-56: 56px;
+
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-600: 600;
+$font-weight-700: 700;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$line-height-16: 16px;
+$line-height-18: 18px;
+$line-height-20: 20px;
+$line-height-24: 24px;
+$line-height-32: 32px;
+$line-height-40: 40px;
+$line-height-67: 67px;
+
+@mixin text-header-h1 {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-56;
+  font-weight: $font-weight-700;
+  line-height: $line-height-67;
+}
+
+@mixin text-header-h2 {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-32;
+  font-weight: $font-weight-700;
+  line-height: $line-height-40;
+}
+
+@mixin text-header-h3 {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-24;
+  font-weight: $font-weight-700;
+  line-height: $line-height-32;
+}
+
+@mixin text-header-h4 {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-18;
+  font-weight: $font-weight-700;
+  line-height: $line-height-24;
+}
+
+@mixin text-body-l-medium {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-18;
+  font-weight: $font-weight-600;
+  line-height: $line-height-24;
+}
+
+@mixin text-body-l-regular {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-18;
+  font-weight: $font-weight-400;
+  line-height: $line-height-24;
+}
+
+@mixin text-body-m-medium {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-16;
+  font-weight: $font-weight-600;
+  line-height: $line-height-20;
+}
+
+@mixin text-body-m-regular {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-16;
+  font-weight: $font-weight-400;
+  line-height: $line-height-20;
+}
+
+@mixin text-body-s-medium {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-14;
+  font-weight: $font-weight-600;
+  line-height: $line-height-18;
+}
+
+@mixin text-body-s-regular {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-12;
+  font-weight: $font-weight-400;
+  line-height: $line-height-18;
+}
+
+@mixin text-caption-m-medium {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-14;
+  font-weight: $font-weight-500;
+  line-height: $line-height-20;
+}
+
+@mixin text-caption-m-regular {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-14;
+  font-weight: $font-weight-400;
+  line-height: $line-height-20;
+}
+
+@mixin text-caption-s-medium {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-10;
+  font-weight: $font-weight-500;
+  line-height: $line-height-16;
+}
+
+@mixin text-caption-s-regular {
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-10;
+  font-weight: $font-weight-400;
+  line-height: $line-height-16;
+}
+
+@mixin text-caption-all-caps {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: $font-family-inter, $font-family-default;
+  font-size: $font-size-12;
+  font-weight: $font-weight-600;
+  line-height: $line-height-20;
+}
+
+@mixin text-programming-code-medium {
+  font-family: $font-family-ibm-plex-mono, $font-family-mono;
+  font-size: $font-size-12;
+  font-weight: $font-weight-400;
+  line-height: $line-height-20;
+}
+
+@mixin text-programming-code-regular {
+  font-family: $font-family-ibm-plex-mono, $font-family-mono;
+  font-size: $font-size-12;
+  font-weight: $font-weight-400;
+  line-height: $line-height-16;
+}

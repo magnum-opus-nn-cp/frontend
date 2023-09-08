@@ -1,0 +1,87 @@
+@import 'src/app/styles/vars';
+
+.Hint__container {
+  position: relative;
+  width: fit-content;
+  height: 44px;
+
+  @include media-down(tablet-small) {
+    width: 100%;
+  }
+}
+
+.Hint__container_hovered {
+  height: unset;
+}
+
+.Hint {
+  @include transition(background-color, color, width);
+  position: relative;
+  //display: inline-block;
+  padding: $spacing-small-2x;
+  border-radius: $radius-large-x;
+  background-color: $color-on-surface-light-400;
+  //margin-right: $spacing-small;
+  width: fit-content;
+  color: $color-text-secondary;
+  cursor: pointer;
+
+  @include scrollbar;
+  overflow-y: auto;
+  max-height: 500px;
+
+  &:not(.Hint_hovered) {
+    white-space: nowrap;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @include media-down(tablet-small) {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.Hint_hovered {
+  width: 100%;
+  background-color: $color-brand-hover;
+  color: white;
+}
+
+.Hint__tip {
+  @include text-caption-m-medium;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: $color-on-surface-light-100;
+  z-index: 1;
+  padding: 2px 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 20px;
+}
+
+.Hint__button {
+  width: 100% !important;
+  margin-top: $spacing-small-2x;
+}
+
+.Hints {
+  @include flex;
+  flex-wrap: wrap;
+  gap: $spacing-small-x;
+
+  @include media-down(tablet-small) {
+    flex-direction: column;
+  }
+}
+
+.Hints_margin {
+  margin-bottom: $spacing-small;
+}
+
+.Hints__stub {
+  @include text-body-s-regular;
+  color: $color-text-secondary;
+}

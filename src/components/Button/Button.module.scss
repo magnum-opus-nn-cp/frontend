@@ -1,0 +1,132 @@
+@import 'src/app/styles/vars';
+
+$button-border-width: 2px;
+
+.Button {
+  //@include text-body-m-medium;
+  @include text-body-m-regular;
+  @include transition(box-shadow, transform, border-color);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: 0 ($spacing-small - $button-border-width);
+  text-decoration: none;
+  color: $color-text-secondary;
+  border: $button-border-width solid transparent;
+  border-radius: $radius-medium-x;
+  background-color: rgb(255 255 255 / 0%);
+  box-shadow: none;
+  user-select: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  appearance: none;
+
+  &,
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+
+  &:hover,
+  &.Button_hovered {
+    transform: translate(0, -3px);
+
+  }
+}
+
+.Button_disabled {
+  pointer-events: none;
+}
+
+.Button:focus-visible {
+  border-color: $color-brand-hover;
+}
+
+.Button_hasLeft {
+  padding-left: $spacing-small-x - $button-border-width;
+}
+
+.Button_hasRight {
+  padding-right: $spacing-small-x - $button-border-width;
+}
+
+.Button__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.Button__loader,
+.Button__contentLeft,
+.Button__contentRight {
+  display: flex;
+  align-items: center;
+}
+
+.Button__contentLeft {
+  margin-right: $spacing-small-3x;
+}
+
+.Button__loader,
+.Button__contentRight {
+  margin-left: $spacing-small-3x;
+}
+
+.Button_size_small {
+  height: 32px;
+  min-height: 32px;
+}
+
+.Button_size_medium {
+  height: 40px;
+  min-height: 40px;
+}
+
+.Button_size_large {
+  @include text-body-l-regular;
+  height: 48px;
+  min-height: 48px;
+}
+
+.Button_variant_primary {
+  background-color: $color-brand-primary;
+  color: $color-text-quaternary;
+
+  &.Button_hovered,
+  &:hover {
+    //background-color: $color-brand-hover;
+    box-shadow: 0 20px 80px -10px $color-brand-primary;
+  }
+
+  &.Button_disabled {
+    color: $color-text-tertiary;
+    background-color: $color-brand-disabled;
+  }
+}
+
+.Button_variant_secondary {
+  background-color: $color-background-secondary;
+  color: $color-text-primary;
+
+  &.Button_hovered,
+  &:hover {
+    //background-color: $color-on-surface-dark-400;
+  }
+
+  &.Button_disabled {
+    color: $color-text-tertiary;
+  }
+}
+
+.Button_stretch_fit {
+  width: fit-content;
+}
+
+.Button_stretch_fill {
+  width: 100%;
+}

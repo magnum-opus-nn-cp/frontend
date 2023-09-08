@@ -1,0 +1,57 @@
+@import 'src/app/styles/vars';
+
+.Text_pointer {
+  cursor: pointer;
+}
+
+.Text_bodyLMedium {
+  @include text-body-l-medium;
+}
+
+.Text_bodyLRegular {
+  @include text-body-l-regular;
+}
+
+.Text_bodyMMedium {
+  @include text-body-m-medium;
+}
+
+.Text_bodyMRegular {
+  @include text-body-m-regular;
+}
+
+.Text_bodySMedium {
+  @include text-body-s-medium;
+}
+
+.Text_bodySRegular {
+  @include text-body-s-regular;
+}
+
+.Text_captionMMedium {
+  @include text-caption-m-medium;
+}
+
+.Text_captionMRegular {
+  @include text-caption-m-regular;
+}
+
+.Text_captionSMedium {
+  @include text-caption-s-medium;
+}
+
+.Text_captionSRegular {
+  @include text-caption-s-regular;
+}
+
+.Text_captionAllCapsS {
+  @include text-caption-all-caps;
+}
+
+.Text_programmingCodeMedium {
+  @include text-programming-code-medium;
+}
+
+.Text_programmingCodeRegular {
+  @include text-programming-code-regular;
+}

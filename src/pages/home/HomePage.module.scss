@@ -1,0 +1,33 @@
+@import 'src/app/styles/vars';
+
+.HomePage {
+  //padding: $spacing-small-x;
+}
+
+.HomePage__title {
+  //@include text-programming-code-regular;
+  font-family: $font-family-ibm-plex-mono, $font-family-mono;
+  margin-bottom: $spacing-small-x;
+}
+
+.HomePage__text {
+  color: $color-text-secondary;
+  width: 70%;
+  margin-bottom: $spacing-medium-x;
+}
+
+.HomePage__box {
+  @include flex-col-middle;
+  background-color: $color-background-dark-300;
+  border-radius: $radius-large;
+  padding: $spacing-medium;
+}
+
+.HomePage__button {
+  margin-bottom: $spacing-small-2x;
+  height: 64px;
+}
+
+.HomePage__buttonHint {
+  color: $color-text-tertiary;
+}

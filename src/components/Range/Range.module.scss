@@ -1,0 +1,132 @@
+@import 'src/app/styles/vars';
+
+$range-track-height: 10px;
+$range-thumb-height: 24px;
+
+@mixin range-track {
+  @include transition(background);
+
+  background: $color-on-surface-dark-400;
+  height: $range-track-height;
+  border-radius: $range-track-height;
+
+  &:hover {
+    background: $color-on-surface-light-400;
+  }
+}
+
+@mixin range-thumb {
+  @include transition(background);
+
+  width: $range-thumb-height;
+  height: $range-thumb-height;
+  margin-top: -($range-thumb-height / 2 - $range-track-height / 2);
+  border-radius: 50%;
+  background: $color-brand-primary;
+
+
+  &:hover {
+    background: $color-brand-hover;
+  }
+}
+
+.Range {
+  @include flex-col;
+  gap: $spacing-small-3x;
+}
+
+.Range__label {
+
+}
+
+.Range__container {
+  @include flex-middle;
+  column-gap: $spacing-small-3x;
+}
+
+.Range__inputContainer {
+  position: relative;
+  height: $range-thumb-height;
+  flex: 1;
+}
+
+.Range__input {
+  display: block;
+  bottom: -7px;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+
+  // reset styles
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+
+  // track
+  &::-webkit-slider-runnable-track  {
+    @include range-track;
+  }
+
+  &::-moz-range-track {
+    @include range-track;
+  }
+
+  // thumb
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    @include range-thumb;
+  }
+
+  &::-moz-range-thumb {
+    border: none; /*Removes extra border that FF applies*/
+    border-radius: 0; /*Removes default border-radius that FF applies*/
+    @include range-thumb;
+  }
+}
+
+.Range__inputContainer:hover {
+  .Range__input::-webkit-slider-thumb  {
+    background: $color-brand-hover;
+  }
+
+  .Range__input::-moz-range-thumb {
+    background: $color-brand-hover;
+  }
+
+  .Range__input::-webkit-slider-runnable-track  {
+    background: $color-on-surface-light-400;
+  }
+
+  .Range__input::-moz-range-track {
+    background: $color-on-surface-light-400;
+  }
+}
+
+.Range__progress {
+  @include transition(background);
+  position: absolute;
+  background: $color-brand-primary;
+  height: $range-track-height;
+  border-radius: $range-track-height 0 0 $range-track-height;
+  top: 7px;
+  left: 0;
+  cursor: pointer;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.Range__inputContainer:hover .Range__progress {
+  background: $color-brand-hover;
+}
+
+.Range__tip {
+  @include text-caption-m-regular;
+  color: $color-text-secondary;
+}
+
+.Range__tip_active {
+  color: $color-text-brand;
+  min-width: 25px;
+}

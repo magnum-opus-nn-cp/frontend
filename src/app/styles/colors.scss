@@ -1,0 +1,131 @@
+@use 'sass:color' as color;
+
+// бело-коричневый
+//$color-text: #1b1918;
+//$color-background: #fafafa;
+//$color-primary: #7e716d;
+//$color-secondary: #e7e5e4;
+//$color-accent: #887b77;
+
+// синий
+$color-text: #010819;
+$color-background: #e6edfe;
+$color-primary: #0647e0;
+$color-secondary: #cddcfe;
+$color-accent: #064ff9;
+
+// сине-пастельный
+//$color-text: #130e07;
+//$color-background: #fbf8f4;
+//$color-primary: #223a5e;
+//$color-secondary: #ebdcc7;
+//$color-accent: #3d68a9;
+
+// синий монохром
+//$color-text: #01062d;
+//$color-background: #ebedfe;
+//$color-primary: #3e51f9;
+//$color-secondary: #b5bcfd;
+//$color-accent: #071cdf;
+
+$color-background-primary: $color-background;
+$color-background-secondary: $color-secondary;
+$color-background-dark-100: darken($color-background, 1%);
+$color-background-dark-200: darken($color-background, 2%);
+$color-background-dark-300: darken($color-background, 3%);
+$color-background-dark-400: darken($color-background, 4%);
+$color-background-accent: $color-accent;
+
+$color-text-primary: $color-text;
+$color-text-secondary: color.adjust($color-background, $blackness: 100%);
+$color-text-tertiary: color.adjust($color-background, $blackness: 70%);
+$color-text-quaternary: $color-background;
+$color-text-brand: $color-primary;
+$color-text-disabled: color.adjust($color-text, $lightness: 40%);
+
+$color-brand-primary: $color-primary;
+$color-brand-hover: color.adjust($color-primary, $blackness: 2%);
+$color-brand-disabled: color.adjust($color-primary, $lightness: 2%);
+
+$color-border: color.invert($color-background);
+
+//@debug $color-border;
+
+//
+/* --- surface --- */
+$color-surface-primary: #141414;
+
+/* --- on-surface --- */
+$color-on-surface-dark-100: #1d1d1d;
+$color-on-surface-dark-200: #252525;
+$color-on-surface-dark-300: #2d2d2d;
+$color-on-surface-dark-400: #3e3e3e;
+$color-on-surface-light-400: #5e6166;
+$color-on-surface-light-300: #868a92;
+$color-on-surface-light-200: #c5c6ca;
+$color-on-surface-light-100: #fafafa;
+$color-on-surface-quaternary: #2b2b2b;
+
+/* --- text --- */
+//$color-text-primary: #fafafa;
+//$color-text-secondary: #c5c6ca;
+//$color-text-tertiary: #868a92;
+//$color-text-quaternary: #5e6166;
+//$color-text-dark: #2b2b2b;
+//$color-text-brand: #8e85e5;
+
+/* --- brand --- */
+//$color-brand-primary: #695fcf;
+//$color-brand-hover: #9288f8;
+//$color-brand-disabled: #49428e;
+
+/* --- system --- */
+$color-system-link: #7f9ef3;
+$color-system-success: #10b981;
+$color-system-warning: #f59e0b;
+$color-system-error: #f43f5e;
+$color-system-link-weak: #142144;
+$color-system-success-weak: #042c1f;
+$color-system-warning-weak: #3d2907;
+$color-system-error-weak: #2d1015;
+$color-system-link-hover: #a8c1f8;
+
+/* --- accent --- */
+$color-accent-blue-100: #7f9ef3;
+$color-accent-blue-200: #2b4acb;
+$color-accent-blue-300: #203175;
+$color-accent-blue-400: #191e40;
+$color-accent-pink-100: #f37fb7;
+$color-accent-pink-200: #cb2b83;
+$color-accent-pink-300: #75204f;
+$color-accent-pink-400: #40162f;
+$color-accent-purple-100: #ab7ae0;
+$color-accent-purple-200: #642ab5;
+$color-accent-purple-300: #3e2069;
+$color-accent-purple-400: #21183b;
+$color-accent-green-100: #8fd460;
+$color-accent-green-200: #49aa19;
+$color-accent-green-300: #306317;
+$color-accent-green-400: #1d3712;
+$color-accent-cyan-100: #58d1c9;
+$color-accent-cyan-200: #13a8a8;
+$color-accent-cyan-300: #146262;
+$color-accent-cyan-400: #163b2e;
+$color-accent-orange-100: #f3b765;
+$color-accent-orange-200: #d87a16;
+$color-accent-orange-300: #7c4a15;
+$color-accent-orange-400: #442a11;
+$color-accent-yellow-100: #f3ea62;
+$color-accent-yellow-200: #d8bd14;
+$color-accent-yellow-300: #7c6e14;
+$color-accent-yellow-400: #443611;
+$color-accent-red-100: #f37370;
+$color-accent-red-200: #d32029;
+$color-accent-red-300: #791a1f;
+$color-accent-red-400: #421716;
+//
+//$text: #131513;
+//$background: #f4f5f4;
+//$primary: #5d555e;
+//$secondary: #d8d4d6;
+//$accent: #706b76;

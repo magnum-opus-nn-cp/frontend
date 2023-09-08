@@ -1,0 +1,24 @@
+@import 'src/app/styles/vars';
+
+.Divider {
+  margin: 0;
+  border: 0;
+  background-color: $color-on-surface-dark-300;
+}
+
+.Divider_variant_horizontal {
+  height: 1px;
+}
+
+.Divider_variant_vertical {
+  width: 1px;
+  height: auto;
+}
+
+//.Divider_color_light {
+//  background-color: $color-on-surface-light-200;
+//}
+//
+//.Divider_color_dark {
+//  background-color: $color-on-surface-dark-300;
+//}
