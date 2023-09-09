@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useEffect, useMemo, useRef } from 'react';
+import { useForm } from 'react-hook-form';
 import { Heading, HeadingSize } from '../../components/Heading';
 import { useUrlParam } from '../../hooks/useUrlParam';
 import { TEXT_PAGE_PARAM } from '../../app/routes';
@@ -6,114 +7,209 @@ import { ETextVariants, Text } from '../../components/Text';
 import { getPercentageColor } from '../../utils/getPercentageColor';
 import { Tooltip } from '../../components/Tooltip';
 import { Link } from '../../components/Link';
+import { useSingleTimeout } from '../../hooks/useSingleTimeout';
+import { ScoreType, useText } from '../../api/process';
+import { Loader } from '../../components/Loader';
+import { BACKEND_MEDIA_PORT, BACKEND_URL } from '../../config';
+import { getEntriesFromText } from './utils/getEntriesFromText';
 import s from './TextPage.module.scss';
+
+export type TextFields = {
+  type: ScoreType;
+};
+
+export const TEXT_REFETCH_MS = 2000;
 
 export const TextPage: FC = () => {
   const textId = useUrlParam(TEXT_PAGE_PARAM, { parser: parseInt });
 
+  // ------ Работа с данными ------
+
+  const { register, watch } = useForm<TextFields>({
+    defaultValues: {
+      type: 'bert'
+    }
+  });
+
+  const scoreType = watch('type');
+
+  const {
+    data: textEntity,
+    isLoading,
+    error
+  } = useText({
+    textId: textId || 0,
+    type: scoreType,
+    config: {
+      enabled: !!textId,
+      refetchInterval: (data) =>
+        data?.description?.[scoreType]?.file && data?.description?.[scoreType]?.pdf ? false : TEXT_REFETCH_MS
+    }
+  });
+
+  const parsedText = useMemo(
+    () => getEntriesFromText(textEntity?.description?.[scoreType]?.text || ''),
+    [scoreType, textEntity]
+  );
+
+  const docxHref = textEntity?.description?.[scoreType]?.file
+    ? `${BACKEND_URL}:${BACKEND_MEDIA_PORT}${textEntity?.description?.[scoreType]?.file}`
+    : undefined;
+  const pdfHref = textEntity?.description?.[scoreType]?.pdf
+    ? `${BACKEND_URL}:${BACKEND_MEDIA_PORT}${textEntity?.description?.[scoreType]?.pdf}`
+    : undefined;
+
+  // ------ Обработка UI ------
+
+  const textRef = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
+  const timeout = useSingleTimeout();
+
+  useEffect(() => {
+    if (!textRef.current) {
+      return;
+    }
+
+    const resetTip = () => {
+      if (tipRef.current) {
+        tipRef.current.style.opacity = `0`;
+
+        timeout.set(() => {
+          if (tipRef.current) {
+            tipRef.current.style.top = `0px`;
+            tipRef.current.style.left = `0px`;
+            tipRef.current.style.visibility = `hidden`;
+            tipRef.current.innerText = ``;
+          }
+        }, 500);
+      }
+    };
+
+    textRef.current.querySelectorAll('span').forEach((item) => {
+      item.addEventListener('mouseover', () => {
+        const rect = item.getBoundingClientRect();
+        const value = Number(item.getAttribute('data-value'));
+
+        if (tipRef.current && value > 0.1) {
+          timeout.clear();
+          tipRef.current.style.top = `${rect.y - 24}px`;
+          tipRef.current.style.left = `${rect.x + 8}px`;
+          tipRef.current.style.visibility = `visible`;
+          tipRef.current.style.opacity = `1`;
+          tipRef.current.innerText = `Точность ${value.toFixed(2)}`;
+        }
+      });
+
+      item.addEventListener('mouseout', resetTip);
+    });
+
+    window.addEventListener('scroll', resetTip);
+    window.addEventListener('touchmove', resetTip);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [parsedText]);
+
+  // ------ Обработка ошибки ------
+
+  if (error) {
+    return null;
+  }
+
   return (
     <div className={s.TextPage}>
-      <Heading size={HeadingSize.H2} className={s.TextPage__title}>
-        Результат обработки запроса №{textId}
-      </Heading>
+      {textEntity && !isLoading ? (
+        <div className={s.TextPage__container}>
+          <Heading size={HeadingSize.H2} className={s.TextPage__title}>
+            Результат обработки запроса №{textEntity.id}
+          </Heading>
 
-      <div className={s.TextPage__props}>
-        <Text className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          Имя файла: file.txt
-        </Text>
+          <div className={s.TextPage__props}>
+            <Text className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
+              Имя файла: {textEntity.file_name}
+            </Text>
 
-        <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          Результат по{' '}
-          <Tooltip className={s.TextPage__tooltip} content={'Языковая модель (Berd)'}>
-            <span className={s.TextPage__underline}>нейросетевому</span>
-          </Tooltip>{' '}
-          методу: АА+ | Accuracy: <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-        </Text>
+            <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
+              Результат по{' '}
+              <Tooltip className={s.TextPage__tooltip} content={'Языковая модель (Bert)'} placement={'right'}>
+                <span className={s.TextPage__underline}>нейросетевому</span>
+              </Tooltip>{' '}
+              методу: {textEntity.score.bert.answer}
+              {/*| Accuracy: <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+            </Text>
 
-        <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          Результат по{' '}
-          <Tooltip className={s.TextPage__tooltip} content={'Лемматизация + TF/IDF + RandomForest'}>
-            <span className={s.TextPage__underline}>статистическому</span>
-          </Tooltip>{' '}
-          методу: АА+ | Accuracy: <span style={{ color: getPercentageColor(0.71) }}>0.71</span>
-        </Text>
+            <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
+              Результат по{' '}
+              <Tooltip
+                className={s.TextPage__tooltip}
+                content={'Лемматизация + TF/IDF + RandomForest'}
+                placement={'right'}>
+                <span className={s.TextPage__underline}>статистическому</span>
+              </Tooltip>{' '}
+              методу: {textEntity.score.f.answer}
+              {/*| Accuracy: <span style={{ color: getPercentageColor(0.71) }}>0.71</span>*/}
+            </Text>
 
-        <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          Результат по методу{' '}
-          <Tooltip className={s.TextPage__tooltip} content={'Berd + Annoy'}>
-            <span className={s.TextPage__underline}>похожести</span>
-          </Tooltip>
-          : АА+ | Accuracy: <span style={{ color: getPercentageColor(0.63) }}>0.63</span>
-        </Text>
-      </div>
+            {/*<Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>*/}
+            {/*  Результат по методу{' '}*/}
+            {/*  <Tooltip className={s.TextPage__tooltip} content={'Bert + Annoy'}>*/}
+            {/*    <span className={s.TextPage__underline}>похожести</span>*/}
+            {/*  </Tooltip>*/}
+            {/*  : АА+ | Accuracy: <span style={{ color: getPercentageColor(0.63) }}>0.63</span>*/}
+            {/*</Text>*/}
+          </div>
 
-      <div className={s.TextPage__summary}>
-        <Heading size={HeadingSize.H4} className={s.TextPage__summaryHeading}>
-          Summary
-        </Heading>
+          <div className={s.TextPage__summary}>
+            <Heading size={HeadingSize.H4} className={s.TextPage__summaryHeading}>
+              Краткое содержание
+            </Heading>
 
-        <Text className={s.TextPage__summaryText} variant={ETextVariants.BODY_M_REGULAR}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </Text>
-      </div>
+            <Text className={s.TextPage__summaryText} variant={ETextVariants.BODY_M_REGULAR}>
+              {textEntity.summary}
+            </Text>
+          </div>
 
-      <div className={s.TextPage__full}>
-        <Heading size={HeadingSize.H4} className={s.TextPage__fullHeading}>
-          Полный текст
-        </Heading>
+          <div className={s.TextPage__full}>
+            <Heading size={HeadingSize.H4} className={s.TextPage__fullHeading}>
+              Полный текст
+            </Heading>
 
-        <Link className={s.TextPage__summaryLink}>Скачать DOCX</Link>
-        <Link className={s.TextPage__summaryLink}>Скачать PDF</Link>
+            <Text className={s.TextPage__selectLabel} variant={ETextVariants.CAPTION_M_REGULAR}>
+              Метод
+            </Text>
+            <select className={s.TextPage__select} {...register('type')}>
+              <option value="bert">Нейросетевой</option>
+              <option value="f">Статистический</option>
+              {/*<option value="f">Схожести</option>*/}
+            </select>
 
-        <Text className={s.TextPage__fullText} variant={ETextVariants.BODY_M_REGULAR}>
-          Повышение кредитного рейтинга Акционерного общества «Уральская сталь» (далее — «Уральская сталь», Компания)
-          вызвано улучшением качественной оценки ликвидности в связи с рефинансированием краткосрочного банковского
-          кредита посредством выпуска облигационного займа с погашением в 2025 году. Также{' '}
-          <span className={s.TextPage__tag}>пересмотр стратегических планов</span> по реализации ряда инвестиционных
-          проектов способствовал улучшению показателя «капитальные затраты к выручке». Улучшение ценовой конъюнктуры на
-          мировом рынке чугуна обеспечило запуск доменной печи №3, находившейся ранее в резерве, что окажет
-          дополнительное положительное влияние на денежный поток Компании в 2023 году. Кредитный рейтинг Компании
-          определяется средними рыночной позицией, бизнес-профилем и уровнем корпоративного управления, а также средней
-          оценкой за размер бизнеса. Показатели рентабельности, ликвидности, долговой нагрузки, обслуживания долга и
-          денежного потока получили высокие оценки. «Уральская сталь» — один из крупнейших в России производителей
-          товарного чугуна, мостостали и стали для производства труб большого диаметра (ТБД). В начале 2022 года
-          Акционерное общество «Загорский трубный завод» ( рейтинг АКРА — rating, прогноз «Стабильный» ; далее — ЗТЗ)
-          <span className={s.TextPage__tag}>приобрело 100% уставного капитала</span> Компании у АО «ХК «МЕТАЛЛОИНВЕСТ» (
-          рейтинг АКРА — rating, прогноз «Стабильный» ). Ключевые факторы оценки Средняя оценка рыночной позиции
-          обусловлена оценкой рыночных позиций «Уральской стали» по основным видам продукции (мостосталь, штрипс и
-          чугун), взвешенных с учетом их доли в консолидированной выручке Компании. Средняя оценка бизнес-профиля
-          Компании определяется: низкой оценкой степени вертикальной интеграции, которая отсутствует в Компании,
-          поскольку она не обеспечена собственными углем и железорудным сырьем; средней оценкой за долю продукции с
-          высокой добавленной стоимостью, которая учитывает сталь для ТБД и мостосталь как высокотехнологичные виды
-          продукции; средней оценкой за характеристику и диверсификацию рынков сбыта, так как рынки сбыта основной
-          продукции «Уральской стали» характеризуются умеренной цикличностью и насыщенностью, а продуктовый портфель
-          Компании умеренно диверсифицирован. Средняя оценка географической диверсификации является следствием наличия
-          экспорта чугуна, толстолистового проката и заготовки, доля которого формирует до{' '}
-          <span className={s.TextPage__tag}>50% консолидированной выручки</span>
-          Компании. С одной стороны, это обуславливает высокую оценку субфактора «доступность и диверсификация рынков
-          сбыта», а с другой — очень низкую оценку субфактора «концентрация на одном заводе». Средний уровень
-          корпоративного управления обусловлен прозрачной структурой бизнеса и успешной реализацией Компанией стратегии
-          роста и расширения продуктового портфеля. Топ-менеджмент Компании представлен экспертами с большим опытом
-          работы в отрасли. «Уральская сталь» применяет отдельные элементы системы риск-менеджмента (например,
-          хеджирование валютного риска в определенных случаях), однако единые документы по стратегии и управлению
-          рисками, а также по дивидендной политике пока не утверждены. Совет директоров и ключевые комитеты пока не
-          сформированы. Структура бизнеса проста. Компания готовит отчетность по МСФО. Высокая оценка финансового
-          риск-профиля Компании обусловлена: высокой оценкой за рентабельность (рентабельность по FFO до процентов и
-          налогов за 2022 год составила 12% и ожидается АКРА на уровне{' '}
-          <span className={s.TextPage__tag}>около 18%</span> в 2023-м); высокой оценкой за обслуживание долга (отношение
-          FFO до чистых процентных платежей к процентным платежам составило 24,7х по результатам 2022 года и
-          прогнозируется АКРА на уровне около 11,7х в 2023-м); высокой оценкой за долговую нагрузку (отношение общего
-          долга с учетом поручительства по долгу ЗТЗ к FFO до чистых процентных платежей ожидается АКРА на уровне 2,5х
-          (0,8х без учета поручительств) по результатам 2023 года); средней оценкой размера бизнеса (абсолютное значение
-          годового FFO до чистых процентных платежей и налогов — менее 30 млрд руб.). Высокая оценка уровня ликвидности.
-        </Text>
-      </div>
+            <Link
+              component={'a'}
+              className={s.TextPage__summaryLink}
+              href={docxHref}
+              target={'_blank'}
+              // download={textEntity.file_name}
+              disabled={!docxHref}>
+              Скачать DOCX
+            </Link>
+            <Link
+              component={'a'}
+              className={s.TextPage__summaryLink}
+              href={pdfHref}
+              target={'_blank'}
+              // download={textEntity.file_name}
+              disabled={!pdfHref}>
+              Скачать PDF
+            </Link>
 
-      {/*<div className={s.TextPage__downloads}>*/}
-      {/*  <a href="#">Скачать DOCX</a>*/}
-      {/*</div>*/}
+            <div className={s.TextPage__fullText} dangerouslySetInnerHTML={{ __html: parsedText }} ref={textRef} />
+
+            <div className={s.TextPage__textTip} ref={tipRef} />
+          </div>
+        </div>
+      ) : (
+        <div className={s.TextPage__loaderContainer}>
+          <Loader className={s.TextPage__loader} />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,21 +1,47 @@
 import { FC, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heading, HeadingSize } from '../../components/Heading';
 import { Link } from '../../components/Link';
 import { getPercentageColor } from '../../utils/getPercentageColor';
 import { EMDASH } from '../../utils/chars';
 import { ModalBody, useModal, ModalContainer } from '../../components/Modal';
 import { useIsMobile } from '../../hooks/useIsMobile';
+import { useUrlParam } from '../../hooks/useUrlParam';
+import { PathBuilder, RESPONSE_PAGE_PARAM } from '../../app/routes';
+import { useProcess } from '../../api/process/getProcess';
 import { TextItem } from './components';
 import s from './ResponsePage.module.scss';
 
 export const ResponsePage: FC = () => {
+  const processId = useUrlParam(RESPONSE_PAGE_PARAM);
+  const isMobile = useIsMobile();
+  const navigate = useNavigate();
+
+  // ------ Работа с данными ------
+
+  const { data } = useProcess({
+    processId: processId || '',
+    config: {
+      enabled: !!processId
+    }
+  });
+
+  const texts = data?.texts || [];
+
+  // ------ Обработка модалки с саммари ------
+
   const [isOpen, setIsOpen] = useState(false);
   const onClose = useCallback(() => {
     setIsOpen(false);
   }, []);
   const { modalIsVisible, isClosing, close } = useModal({ isOpen, onClose });
 
-  const isMobile = useIsMobile();
+  const [summaryText, setSummaryText] = useState('');
+
+  const openSummary = useCallback((text: string = '') => {
+    setSummaryText(text);
+    setIsOpen(true);
+  }, []);
 
   return (
     <div className={s.ResponsePage}>
@@ -26,8 +52,14 @@ export const ResponsePage: FC = () => {
       <div className={s.ResponsePage__container}>
         {isMobile ? (
           <>
-            <TextItem onClickSummary={() => setIsOpen(true)} />
-            <TextItem />
+            {texts.map((text, index) => (
+              <TextItem
+                text={text}
+                onClick={() => navigate(PathBuilder.getTextPath(text.id))}
+                onClickSummary={() => openSummary(text.summary)}
+                key={index}
+              />
+            ))}
           </>
         ) : (
           <table className={s.ResponsePage__table}>
@@ -37,71 +69,79 @@ export const ResponsePage: FC = () => {
                 <th>Имя</th>
                 <th>М. н-с.</th>
                 <th>М. стат.</th>
-                <th>М. п.</th>
-                <th>Рез.</th>
+                {/*<th>М. п.</th>*/}
+                {/*<th>Рез.</th>*/}
                 <th>Крат. сод.</th>
               </tr>
             </thead>
 
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>file.txt</td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.63) }}>0.63</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td className={s.ResponsePage__tableSummary}>
-                  <Link standalone={false}>Открыть</Link>
-                </td>
-              </tr>
+              {texts.map((text, index) => (
+                <tr onClick={() => navigate(PathBuilder.getTextPath(text.id))} key={index}>
+                  <td>{text.id}</td>
+                  <td>{text.file_name.length > 10 ? `${text.file_name.slice(0, 10)}...` : text.file_name}</td>
+                  <td>
+                    {text.score.bert.answer}
+                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                  </td>
+                  <td>
+                    {text.score.f.answer}
+                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                  </td>
+                  {/*<td>*/}
+                  {/*  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+                  {/*</td>*/}
+                  {/*<td>*/}
+                  {/*  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+                  {/*</td>*/}
+                  <td className={s.ResponsePage__tableSummary}>
+                    <Link
+                      component={'button'}
+                      standalone={false}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openSummary(text.summary);
+                      }}>
+                      Открыть
+                    </Link>
+                  </td>
+                </tr>
+              ))}
 
-              <tr>
-                <td>1</td>
-                <td>{EMDASH}</td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.63) }}>0.63</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td>
-                  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>
-                </td>
-                <td className={s.ResponsePage__tableSummary}>
-                  <Link
-                    component={'button'}
-                    standalone={false}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsOpen(true);
-                    }}>
-                    Открыть
-                  </Link>
-                </td>
-              </tr>
+              {/*<tr>*/}
+              {/*  <td>1</td>*/}
+              {/*  <td>{EMDASH}</td>*/}
+              {/*  <td>*/}
+              {/*    AA+ | <span style={{ color: getPercentageColor(0.63) }}>0.63</span>*/}
+              {/*  </td>*/}
+              {/*  <td>*/}
+              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+              {/*  </td>*/}
+              {/*  <td>*/}
+              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+              {/*  </td>*/}
+              {/*  <td>*/}
+              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+              {/*  </td>*/}
+              {/*  <td className={s.ResponsePage__tableSummary}>*/}
+              {/*    <Link*/}
+              {/*      component={'button'}*/}
+              {/*      standalone={false}*/}
+              {/*      onClick={(e) => {*/}
+              {/*        e.stopPropagation();*/}
+              {/*        setIsOpen(true);*/}
+              {/*      }}>*/}
+              {/*      Открыть*/}
+              {/*    </Link>*/}
+              {/*  </td>*/}
+              {/*</tr>*/}
             </tbody>
           </table>
         )}
       </div>
 
       <ModalContainer isOpen={modalIsVisible} onClose={close} isClosing={isClosing}>
-        <ModalBody>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
-          standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-          make a type specimen book.
-        </ModalBody>
+        <ModalBody className={s.ResponsePage__modalBody}>{summaryText}</ModalBody>
       </ModalContainer>
     </div>
   );

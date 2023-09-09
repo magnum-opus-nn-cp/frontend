@@ -44,6 +44,10 @@
   &:active {
     color: $color-brand-active;
   }
+
+  &.Link_disabled {
+    color: $color-brand-disabled;
+  }
 }
 
 .Link_underlined {

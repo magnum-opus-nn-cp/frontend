@@ -81,6 +81,10 @@ $textarea-height: 192px;
   min-height: $textarea-height;
 }
 
+.HomePage__textareaInput {
+  min-height: 160px;
+}
+
 .HomePage__filesContainer {
   @include flex-middle;
   flex-wrap: wrap;

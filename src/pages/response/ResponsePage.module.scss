@@ -1,7 +1,7 @@
 @import 'src/app/styles/vars';
 
 .ResponsePage {
-
+  padding-bottom: $spacing-medium-x;
 }
 
 .ResponsePage__title {
@@ -13,7 +13,7 @@
 
   @include mobile-down {
     @include flex-col;
-    row-gap: $spacing-small-2x;
+    row-gap: $spacing-small-x;
   }
 }
 
@@ -63,16 +63,24 @@
     @include transition(border-color, color);
 
     &.ResponsePage__tableSummary {
-      @include transition(opacity);
-      opacity: 0;
+      //@include transition(opacity);
+      //opacity: 0;
 
       &:hover {
-        opacity: 1;
+        //opacity: 1;
       }
     }
 
     > span {
       @include transition(color);
     }
+  }
+}
+
+.ResponsePage__modalBody {
+  line-height: $line-height-24;
+
+  @include mobile-down {
+    //line-height: $line-height-20;
   }
 }

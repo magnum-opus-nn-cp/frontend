@@ -7,5 +7,6 @@
 
   @include media-down(tablet-small) {
     border-radius: 0 0 $radius-small $radius-small;
+    @include text-body-s-regular;
   }
 }

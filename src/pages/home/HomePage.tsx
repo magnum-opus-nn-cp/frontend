@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
+import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { ReactFCC } from '../../utils/ReactFCC';
 import { Heading, HeadingSize } from '../../components/Heading';
@@ -14,6 +15,7 @@ import { useSingleTimeout } from '../../hooks/useSingleTimeout';
 import { Upload } from '../../components/Upload';
 import { Attachment } from '../../components/Attachment';
 import { Loader } from '../../components/Loader';
+import { PathBuilder } from '../../app/routes';
 import { ReactComponent as PlusIcon } from './assets/plus.svg';
 import s from './HomePage.module.scss';
 
@@ -61,12 +63,10 @@ export const HomePage: ReactFCC = () => {
 
   const onSubmit: SubmitHandler<FormFields> = useCallback(
     async (data) => {
-      const response = await createProcess({
+      await createProcess({
         text: data.text,
         files: data.files
       });
-
-      // setProcessId(response.id);
     },
     [createProcess]
   );
@@ -87,6 +87,14 @@ export const HomePage: ReactFCC = () => {
       }
     }
   }, [processId, refetchProcess, timeout]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (processId && process && process.current === process.total) {
+      navigate(PathBuilder.getProcessPath(processId));
+    }
+  }, [navigate, process, processId]);
 
   // ------ Обработка DnD ------
 
@@ -141,6 +149,9 @@ export const HomePage: ReactFCC = () => {
               {currentFiles.length === 0 ? (
                 <Textarea
                   className={s.HomePage__textarea}
+                  classes={{
+                    input: s.HomePage__textareaInput
+                  }}
                   registration={register('text')}
                   rows={8}
                   placeholder={'Текст пресс-релиза...'}
