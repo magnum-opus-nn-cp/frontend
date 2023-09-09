@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { axios } from '../../lib/axios';
 import { ExtractFnReturnType, QueryConfig } from '../../lib/react-query';
-import { ProcessDescriptor, ScoreType, TextDescriptor } from './types';
-import { PROCESS_API_URL, TEXT_API_URL, TEXT_PARAM } from './urlKeys';
-import { QUERY_KEY_PROCESSES, QUERY_KEY_TEXTS } from './queryKeys';
+import { ScoreType, TextDescriptor } from './types';
+import { TEXT_API_URL, TEXT_PARAM } from './urlKeys';
+import { QUERY_KEY_TEXTS } from './queryKeys';
 
 export type GetTextResponse = TextDescriptor;
 

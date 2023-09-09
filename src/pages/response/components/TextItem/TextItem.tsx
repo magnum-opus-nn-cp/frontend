@@ -29,23 +29,43 @@ export const TextItem: ReactFCC<TextItemProps> = (props) => {
 
       <div className={s.TextItem__row}>
         <Text component={'span'} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          М. н-с: {text.score.bert.answer}
-          {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
-        </Text>{' '}
+          Нейросетевой метод: {text.score.bert.answer}{' '}
+          {text.score.bert.metric && (
+            <>
+              | Точность{' '}
+              <span style={{ color: getPercentageColor(text.score.bert.metric) }}>
+                {text.score.bert.metric.toFixed(2)}
+              </span>
+            </>
+          )}
+        </Text>
       </div>
 
       <div className={s.TextItem__row}>
         <Text component={'span'} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
-          М. стат: {text.score.f.answer}
-          {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
-        </Text>{' '}
+          Статистический метод: {text.score.f.answer}{' '}
+          {text.score.f.metric && (
+            <>
+              | Точность{' '}
+              <span style={{ color: getPercentageColor(text.score.f.metric) }}>{text.score.f.metric.toFixed(2)}</span>
+            </>
+          )}
+        </Text>
       </div>
 
-      {/*<div className={s.TextItem__row}>*/}
-      {/*  <Text component={'span'} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>*/}
-      {/*    М. п: AA+ | <span style={{ color: getPercentageColor(0.63) }}>0.63</span>*/}
-      {/*  </Text>{' '}*/}
-      {/*</div>*/}
+      <div className={s.TextItem__row}>
+        <Text component={'span'} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
+          Метод схожести: {text.score.nearest.answer}{' '}
+          {text.score.nearest.metric && (
+            <>
+              | Точность{' '}
+              <span style={{ color: getPercentageColor(text.score.nearest.metric) }}>
+                {text.score.nearest.metric.toFixed(2)}
+              </span>
+            </>
+          )}
+        </Text>
+      </div>
 
       <div className={clsx(s.TextItem__row, s.TextItem__row_link)}>
         <Text component={'span'} variant={ETextVariants.BODY_S_REGULAR}>

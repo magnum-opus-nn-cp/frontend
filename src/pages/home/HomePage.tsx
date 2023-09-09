@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
@@ -9,8 +9,7 @@ import { ETextVariants, Text } from '../../components/Text';
 import { Button, ButtonSize, ButtonVariant } from '../../components/Button';
 import { Divider } from '../../components/Divider';
 import { Textarea } from '../../components/Textarea';
-import { useCreateProcess } from '../../api/process';
-import { useProcess } from '../../api/process/getProcess';
+import { useCreateProcess, useProcess } from '../../api/process';
 import { useSingleTimeout } from '../../hooks/useSingleTimeout';
 import { Upload } from '../../components/Upload';
 import { Attachment } from '../../components/Attachment';
@@ -24,7 +23,8 @@ export type FormFields = {
   files: File[];
 };
 
-export const PROCESS_POLLING_MS = 500;
+// 3207
+export const PROCESS_POLLING_MS = 2000;
 
 export const HomePage: ReactFCC = () => {
   const {
@@ -136,8 +136,8 @@ export const HomePage: ReactFCC = () => {
           </Heading>
 
           <Text className={s.HomePage__text} variant={ETextVariants.BODY_M_REGULAR}>
-            Позволяет оценить кредитный рейтинг компании на основе пресс-релиза с выделением в тексте меток по различным
-            метрикам.
+            Позволяет оценить кредитный рейтинг компании на основе пресс-релиза с выделением в тексте ключевых фраз с
+            использованием различных методов.
           </Text>
 
           <form className={s.HomePage__box} onSubmit={handleSubmit(onSubmit)}>

@@ -6,7 +6,7 @@ export const getTextFromDetailed = (detailed: DetailDescriptor[] = []) => {
 
   detailed.forEach((item, index) => {
     const [_, metric] = item.features;
-    const color = getColorFromValue(metric / 100);
+    const color = getColorFromValue(metric);
     html += `<p class="detailedText" data-index="${index}" style="background-color: ${color};">${item.text}</p> `;
   });
 

@@ -16,7 +16,6 @@ export type CreateProcessResponse = {
 export const createProcess = (data: CreateProcessDTO): Promise<CreateProcessResponse> => {
   const isForm = data.files?.length !== 0;
 
-  console.log(data);
   let inputData: any;
   if (isForm) {
     inputData = new FormData();

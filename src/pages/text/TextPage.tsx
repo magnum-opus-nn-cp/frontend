@@ -20,7 +20,7 @@ export type TextFields = {
   type: ScoreType;
 };
 
-export const TEXT_REFETCH_MS = 500;
+export const TEXT_REFETCH_MS = 2000;
 
 export const TextPage: FC = () => {
   const textId = useUrlParam(TEXT_PAGE_PARAM, { parser: parseInt });
@@ -167,32 +167,46 @@ export const TextPage: FC = () => {
                 <span className={s.TextPage__underline}>нейросетевому</span>
               </Tooltip>{' '}
               методу: {textEntity.score.bert.answer}
-              {/*| Accuracy: <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
+              {textEntity.score.bert.metric && (
+                <>
+                  | Точность:{' '}
+                  <span style={{ color: getPercentageColor(textEntity.score.bert.metric) }}>
+                    {textEntity.score.bert.metric.toFixed(2)}
+                  </span>
+                </>
+              )}{' '}
             </Text>
 
             <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
               Результат по{' '}
               <Tooltip
                 className={s.TextPage__tooltip}
-                content={'Лемматизация + TF/IDF + RandomForest'}
+                content={'Лемматизация + TF-IDF + RandomForest'}
                 placement={'right'}>
                 <span className={s.TextPage__underline}>статистическому</span>
               </Tooltip>{' '}
               методу: {textEntity.score.f.answer}
-              {/*| Accuracy: <span style={{ color: getPercentageColor(0.71) }}>0.71</span>*/}
+              {textEntity.score.f.metric && (
+                <>
+                  | Точность:{' '}
+                  <span style={{ color: getPercentageColor(textEntity.score.f.metric) }}>
+                    {textEntity.score.f.metric.toFixed(2)}
+                  </span>
+                </>
+              )}
             </Text>
 
             <Text component={'div'} className={s.TextPage__prop} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
               Результат по методу{' '}
-              <Tooltip className={s.TextPage__tooltip} content={'Bert + Annoy'}>
+              <Tooltip className={s.TextPage__tooltip} content={'LaBSe + Annoy'}>
                 <span className={s.TextPage__underline}>схожести</span>
               </Tooltip>
               : {textEntity.score.nearest.answer}
               {textEntity.score.nearest.metric && (
                 <>
                   | Точность:{' '}
-                  <span style={{ color: getPercentageColor(textEntity.score.nearest.metric / 100) }}>
-                    {(textEntity.score.nearest.metric / 100).toFixed(2)}
+                  <span style={{ color: getPercentageColor(textEntity.score.nearest.metric) }}>
+                    {textEntity.score.nearest.metric.toFixed(2)}
                   </span>
                 </>
               )}
@@ -269,8 +283,8 @@ export const TextPage: FC = () => {
               </p>
               <p>
                 Точность{' '}
-                <span style={{ color: getPercentageColor(activeDetailed.features[1] / 100) }}>
-                  {(activeDetailed.features[1] / 100).toFixed(2)}
+                <span style={{ color: getPercentageColor(activeDetailed.features[1]) }}>
+                  {activeDetailed.features[1].toFixed(2)}
                 </span>
               </p>
               {activeDetailed.features[2].map((text, index) => (

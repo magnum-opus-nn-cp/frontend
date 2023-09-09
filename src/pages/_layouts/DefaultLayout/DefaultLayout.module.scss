@@ -15,7 +15,7 @@
 
 .DefaultLayout__container {
   @include flex-col;
-  grid-column: 3 / span 8;
+  grid-column: 2 / span 10;
 
   @include tablet-down {
     grid-column: 1 / -1;

@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Heading, HeadingSize } from '../../components/Heading';
 import { Link } from '../../components/Link';
 import { getPercentageColor } from '../../utils/getPercentageColor';
-import { EMDASH } from '../../utils/chars';
 import { ModalBody, useModal, ModalContainer } from '../../components/Modal';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import { useUrlParam } from '../../hooks/useUrlParam';
 import { PathBuilder, RESPONSE_PAGE_PARAM } from '../../app/routes';
-import { useProcess } from '../../api/process/getProcess';
+import { useProcess } from '../../api/process';
 import { TextItem } from './components';
 import s from './ResponsePage.module.scss';
 
@@ -67,9 +66,9 @@ export const ResponsePage: FC = () => {
               <tr>
                 <th>ID</th>
                 <th>Имя</th>
-                <th>М. н-с.</th>
-                <th>М. стат.</th>
-                <th>М. c.</th>
+                <th>Нейросетевой метод</th>
+                <th>Статистический метод</th>
+                <th>Метод схожести</th>
                 {/*<th>Рез.</th>*/}
                 <th>Крат. сод.</th>
               </tr>
@@ -81,23 +80,38 @@ export const ResponsePage: FC = () => {
                   <td>{text.id}</td>
                   <td>{text.file_name.length > 10 ? `${text.file_name.slice(0, 10)}...` : text.file_name}</td>
                   <td>
-                    {text.score.bert.answer}
-                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                    {text.score.bert.answer}{' '}
+                    {text.score.bert.metric && (
+                      <>
+                        | Точность{' '}
+                        <span style={{ color: getPercentageColor(text.score.bert.metric) }}>
+                          {text.score.bert.metric.toFixed(2)}
+                        </span>
+                      </>
+                    )}
                   </td>
                   <td>
-                    {text.score.f.answer}
-                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                    {text.score.f.answer}{' '}
+                    {text.score.f.metric && (
+                      <>
+                        | Точность{' '}
+                        <span style={{ color: getPercentageColor(text.score.f.metric) }}>
+                          {text.score.f.metric.toFixed(2)}
+                        </span>
+                      </>
+                    )}
                   </td>
                   <td>
-                    {text.score.nearest.answer}
-                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                    {text.score.nearest.answer}{' '}
+                    {text.score.nearest.metric && (
+                      <>
+                        | Точность{' '}
+                        <span style={{ color: getPercentageColor(text.score.nearest.metric) }}>
+                          {text.score.nearest.metric.toFixed(2)}
+                        </span>
+                      </>
+                    )}
                   </td>
-                  {/*<td>*/}
-                  {/*  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
-                  {/*</td>*/}
-                  {/*<td>*/}
-                  {/*  AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
-                  {/*</td>*/}
                   <td className={s.ResponsePage__tableSummary}>
                     <Link
                       component={'button'}
