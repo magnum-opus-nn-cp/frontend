@@ -4,7 +4,6 @@ import { Heading, HeadingSize } from '../../components/Heading';
 import { useUrlParam } from '../../hooks/useUrlParam';
 import { TEXT_PAGE_PARAM } from '../../app/routes';
 import { ETextVariants, Text } from '../../components/Text';
-import { getPercentageColor } from '../../utils/getPercentageColor';
 import { Tooltip } from '../../components/Tooltip';
 import { Link } from '../../components/Link';
 import { useSingleTimeout } from '../../hooks/useSingleTimeout';
@@ -18,7 +17,7 @@ export type TextFields = {
   type: ScoreType;
 };
 
-export const TEXT_REFETCH_MS = 2000;
+export const TEXT_REFETCH_MS = 500;
 
 export const TextPage: FC = () => {
   const textId = useUrlParam(TEXT_PAGE_PARAM, { parser: parseInt });
