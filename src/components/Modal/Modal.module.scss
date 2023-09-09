@@ -1,0 +1,67 @@
+@import 'src/app/styles/vars';
+
+.Modal {
+  position: fixed;
+  z-index: $z-index-modal;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-primary;
+}
+
+.Modal__overlay {
+  @include transition(opacity);
+
+  position: fixed;
+  z-index: $z-index-overlay;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.Modal__content {
+  @include transition(opacity);
+
+  z-index: $z-index-modal;
+  border-radius: $radius-large;
+  background: var(--bg-color);
+  opacity: 0;
+
+  @include media-down(tablet-small) {
+    width: 100%;
+    margin-top: auto;
+  }
+}
+
+.Modal_entering,
+.Modal_entered {
+  .Modal__overlay {
+    opacity: 0.5;
+  }
+
+  .Modal__content {
+    opacity: 1;
+  }
+}
+
+.Modal_exiting,
+.Modal_exited {
+  pointer-events: none;
+
+  .Modal__overlay {
+    opacity: 0;
+  }
+
+  .Modal__content {
+    opacity: 0;
+  }
+}

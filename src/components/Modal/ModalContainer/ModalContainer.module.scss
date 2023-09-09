@@ -1,0 +1,32 @@
+@import 'src/app/styles/vars';
+
+.ModalContainer {
+  @include media-down(tablet-small) {
+    padding: $spacing-small $spacing-small-x;
+  }
+}
+
+.ModalContainer__wrapper {
+  display: flex;
+  width: 600px;
+  max-height: calc(100vh - $spacing-medium-x * 2);
+  background: $color-background-primary;
+  padding: $spacing-small;
+
+  &_borderRadius {
+    border-radius: $radius-medium;
+  }
+
+  @include media-down(tablet-small) {
+    width: 100%;
+    max-height: calc(100vh - $spacing-small * 2);
+    margin-top: auto;
+    background: $color-background-primary;
+  }
+}
+
+.ModalContainer__content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

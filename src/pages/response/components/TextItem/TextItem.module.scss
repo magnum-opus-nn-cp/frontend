@@ -1,0 +1,33 @@
+@import 'src/app/styles/vars';
+
+.TextItem {
+  background-color: $color-background-dark-100;
+  border-radius: $radius-medium;
+  padding: $spacing-small-2x;
+}
+
+.TextItem__row {
+  margin-bottom: $spacing-small-4x;
+
+  &:not(.TextItem__row_name) {
+    > span {
+      font-size: $font-size-14;
+    }
+  }
+}
+
+.TextItem__row_name {
+  margin-bottom: $spacing-small-3x;
+
+}
+
+.TextItem__name {
+  //font-size: $font-size-18;
+  text-transform: uppercase;
+  font-weight: $font-weight-600;
+}
+
+.TextItem__row_link {
+  margin-top: $spacing-small-3x;
+  margin-bottom: 0;
+}

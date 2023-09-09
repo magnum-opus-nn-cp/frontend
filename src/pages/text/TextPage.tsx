@@ -42,7 +42,7 @@ export const TextPage: FC = () => {
           Результат по методу{' '}
           <Tooltip className={s.TextPage__tooltip} content={'Berd + Annoy'}>
             <span className={s.TextPage__underline}>похожести</span>
-          </Tooltip>{' '}
+          </Tooltip>
           : АА+ | Accuracy: <span style={{ color: getPercentageColor(0.63) }}>0.63</span>
         </Text>
       </div>
