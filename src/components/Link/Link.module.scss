@@ -1,0 +1,51 @@
+@import 'src/app/styles/vars';
+
+.Link {
+  @include reset-button;
+  @include transition(border-color, color);
+
+  position: relative;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+}
+
+.Link_disabled {
+  cursor: default;
+}
+
+.Link_standalone {
+  &.Link_size_large {
+    @include text-body-l-regular;
+  }
+
+  &.Link_size_medium {
+    @include text-body-m-regular;
+  }
+
+  &.Link_size_small {
+    @include text-body-s-regular;
+  }
+}
+
+.Link_variant_primary {
+  color: $color-brand-primary;
+
+  &.Link_hover:not(.Link_disabled),
+  &:hover:not(.Link_disabled, :active) {
+    color: $color-brand-hover;
+  }
+
+  &:active {
+    color: $color-brand-active;
+  }
+}
+
+.Link_underlined {
+  border-bottom: 1px solid currentcolor;
+}

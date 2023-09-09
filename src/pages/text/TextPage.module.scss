@@ -1,0 +1,80 @@
+@import 'src/app/styles/vars';
+
+.TextPage {
+  padding-bottom: $spacing-medium-x;
+}
+
+.TextPage__title {
+  margin-bottom: $spacing-small-x;
+}
+
+.TextPage__props {
+  @include flex-col;
+  row-gap: $spacing-small-3x;
+  margin-bottom: $spacing-small;
+}
+
+.TextPage__prop {
+  font-size: $font-size-14;
+  line-height: $line-height-20;
+}
+
+.TextPage__tooltip {
+  display: inline-block;
+}
+
+.TextPage__underline {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.TextPage__summary {
+  margin-bottom: $spacing-small;
+}
+
+.TextPage__summaryHeading {
+  margin-bottom: $spacing-small-x;
+}
+
+.TextPage__summaryText {
+}
+
+.TextPage__summaryLink {
+  display: block;
+  margin-bottom: $spacing-small-4x;
+  width: fit-content;
+
+  &:last-of-type {
+    margin-bottom: $spacing-small-x;
+  }
+}
+
+.TextPage__full {
+}
+
+.TextPage__fullHeading {
+  margin-bottom: $spacing-small-x;
+}
+
+.TextPage__fullText {
+  line-height: $line-height-24;
+
+  @include mobile-up {
+    border: 1px solid $color-border-default;
+    padding: $spacing-medium $spacing-small;
+    border-radius: $radius-small;
+  }
+
+  @include mobile-down {
+    border-top: 1px solid $color-border-default;
+    border-bottom: 1px solid $color-border-default;
+    padding: $spacing-small-x 0;
+  }
+}
+
+.TextPage__tag {
+  display: inline-block;
+  background-color: #efe1ae;
+  padding: 0 2px;
+  margin: 0 -2px;
+}

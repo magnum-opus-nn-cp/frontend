@@ -1,0 +1,66 @@
+@import 'src/app/styles/vars';
+
+.Tooltip {
+  display: flex;
+}
+
+.Tooltip__trigger {
+  position: relative;
+}
+
+.Tooltip__contentWrapper {
+  z-index: 1;
+  transition: opacity 0.15s ease-out;
+}
+
+.Tooltip__contentWrapper_entering,
+.Tooltip__contentWrapper_entered {
+  opacity: 1;
+}
+
+.Tooltip__contentWrapper_exiting,
+.Tooltip__contentWrapper_exited {
+  opacity: 0;
+}
+
+.Tooltip__title {
+  @include text-header-h4;
+
+  margin-bottom: $spacing-small-3x;
+}
+
+.Tooltip__content {
+  @include text-body-s-regular;
+
+  display: flex;
+  flex-direction: column;
+  padding: 8px 12px;
+  color: $color-text-quaternary;
+  border-radius: $radius-medium;
+  background-color: $color-text-primary;
+}
+
+.Tooltip__arrow {
+  color: $color-text-primary;
+  border: 7px solid transparent;
+}
+
+.Tooltip__arrow_top {
+  bottom: -13px;
+  border-top-color: currentcolor;
+}
+
+.Tooltip__arrow_right {
+  left: -13px;
+  border-right-color: currentcolor;
+}
+
+.Tooltip__arrow_bottom {
+  top: -13px;
+  border-bottom-color: currentcolor;
+}
+
+.Tooltip__arrow_left {
+  right: -13px;
+  border-left-color: currentcolor;
+}
