@@ -133,3 +133,21 @@
   --loader-size: 96px;
   color: $color-background-secondary !important;
 }
+
+.TextPage__modalBody {
+  @include flex-col;
+  line-height: $line-height-24;
+}
+
+.TextPage__modalParagraph {
+  margin-top: $spacing-small-3x;
+  padding-top: $spacing-small-3x;
+  border-top: 1px solid $color-divider-darker;
+}
+
+:global {
+  .detailedText {
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+}

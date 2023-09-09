@@ -69,7 +69,7 @@ export const ResponsePage: FC = () => {
                 <th>Имя</th>
                 <th>М. н-с.</th>
                 <th>М. стат.</th>
-                {/*<th>М. п.</th>*/}
+                <th>М. c.</th>
                 {/*<th>Рез.</th>*/}
                 <th>Крат. сод.</th>
               </tr>
@@ -86,6 +86,10 @@ export const ResponsePage: FC = () => {
                   </td>
                   <td>
                     {text.score.f.answer}
+                    {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
+                  </td>
+                  <td>
+                    {text.score.nearest.answer}
                     {/*| <span style={{ color: getPercentageColor(0.99) }}>0.99</span>*/}
                   </td>
                   {/*<td>*/}
@@ -107,34 +111,6 @@ export const ResponsePage: FC = () => {
                   </td>
                 </tr>
               ))}
-
-              {/*<tr>*/}
-              {/*  <td>1</td>*/}
-              {/*  <td>{EMDASH}</td>*/}
-              {/*  <td>*/}
-              {/*    AA+ | <span style={{ color: getPercentageColor(0.63) }}>0.63</span>*/}
-              {/*  </td>*/}
-              {/*  <td>*/}
-              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
-              {/*  </td>*/}
-              {/*  <td>*/}
-              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
-              {/*  </td>*/}
-              {/*  <td>*/}
-              {/*    AA+ | <span style={{ color: getPercentageColor(0.95) }}>0.95</span>*/}
-              {/*  </td>*/}
-              {/*  <td className={s.ResponsePage__tableSummary}>*/}
-              {/*    <Link*/}
-              {/*      component={'button'}*/}
-              {/*      standalone={false}*/}
-              {/*      onClick={(e) => {*/}
-              {/*        e.stopPropagation();*/}
-              {/*        setIsOpen(true);*/}
-              {/*      }}>*/}
-              {/*      Открыть*/}
-              {/*    </Link>*/}
-              {/*  </td>*/}
-              {/*</tr>*/}
             </tbody>
           </table>
         )}

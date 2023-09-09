@@ -1,9 +1,17 @@
-export type ScoreType = 'bert' | 'f';
+export type DetailFeatures = [answer: string, metric: number, texts: string[]];
+
+export type DetailDescriptor = {
+  text: string;
+  features: DetailFeatures;
+};
+
+export type ScoreType = 'bert' | 'f' | 'nearest';
 
 export type ScoreDescriptor = {
   [key in ScoreType]: {
-    text: string;
     answer: string;
+    metric?: number;
+    // detailed?: DetailDescriptor[];
   };
 };
 
@@ -15,7 +23,7 @@ export type TextDescriptor = {
         [key in ScoreType]?: {
           file?: string;
           pdf?: string;
-          text: string;
+          text: string | DetailDescriptor[];
         };
       }
     | null;

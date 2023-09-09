@@ -2,7 +2,7 @@ export const getColorFromValue = (value: number) => {
   return `rgba(255, 255, 0, ${value > 0.1 ? value + 0.2 : 0})`;
 };
 
-export const getEntriesFromText = (html: string) => {
+export const getEntriesFromText = (html: string = '') => {
   let copiedHtml = html;
   const matches = Array.from(html.matchAll(/<span[^>]+>(.*?)<\/span>/gi));
 
@@ -13,7 +13,7 @@ export const getEntriesFromText = (html: string) => {
 
     copiedHtml = copiedHtml.replace(
       match[0],
-      `<span data-value="${value}" style="background-color: ${getColorFromValue(
+      `<span class="hintText" data-value="${value}" style="background-color: ${getColorFromValue(
         value
       )}; /*padding: 0 2px; margin: 0 -2px;*/">${text}</span>`
     );

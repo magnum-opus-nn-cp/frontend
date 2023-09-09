@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 export const usePreventWindowScroll = (isPrevented?: boolean) => {
   const preventScroll = useCallback((isPrevented: boolean) => {
-    document.body.classList.toggle('scroll-prevented', isPrevented);
+    document.documentElement.classList.toggle('scroll-prevented', isPrevented);
   }, []);
 
   useEffect(() => {

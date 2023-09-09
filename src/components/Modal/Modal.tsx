@@ -16,7 +16,6 @@ export interface ModalProps {
 
 export const Modal = (props: ModalProps) => {
   const { className, children, isOpen, onClose, isClosing, preventWindowScroll } = props;
-
   const nodeRef = useRef(null);
   usePreventWindowScroll(preventWindowScroll ?? isOpen);
 
