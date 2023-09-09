@@ -37,7 +37,14 @@ export const HomePage: ReactFCC = () => {
     }
   });
 
-  const [processId, setProcessId] = useState<string | null>(null);
+  // const [processId, setProcessId] = useState<string | null>(null);
+
+  const {
+    data: createProcessResponse,
+    mutateAsync: createProcess,
+    isLoading: createProcessLoading
+  } = useCreateProcess();
+  const processId = createProcessResponse?.id;
 
   const {
     data: process,
@@ -50,8 +57,6 @@ export const HomePage: ReactFCC = () => {
     }
   });
 
-  const { mutateAsync: createProcess, isLoading: createProcessLoading } = useCreateProcess();
-
   const timeout = useSingleTimeout();
 
   const onSubmit: SubmitHandler<FormFields> = useCallback(
@@ -61,7 +66,7 @@ export const HomePage: ReactFCC = () => {
         files: data.files
       });
 
-      setProcessId(response.id);
+      // setProcessId(response.id);
     },
     [createProcess]
   );
@@ -110,7 +115,8 @@ export const HomePage: ReactFCC = () => {
 
   // ------ Логика UI ------
 
-  const isLoading = createProcessLoading || processFetching || !!(process && process.current < process.total);
+  const isLoading =
+    createProcessLoading || !!processId || processFetching || !!(process && process.current < process.total);
   const isDisabled = !currentText && currentFiles.length === 0;
 
   return (

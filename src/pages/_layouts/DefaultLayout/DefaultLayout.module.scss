@@ -24,13 +24,15 @@
 
 .DefaultLayout__header {
   display: grid;
-  gap: $spacing-small-4x $spacing-medium;
   margin-bottom: $spacing-medium-x;
 
   @include mobile-up {
-    grid-template: 'mopus cp cbr'/ auto 1fr auto;
+    grid-template:
+      'mopus cp cbr'
+      / auto 1fr auto;
     height: $header-height;
     align-items: center;
+    column-gap: $spacing-medium;
   }
 
   @include mobile-down {
@@ -39,11 +41,12 @@
       'mopus cbr'
       / 1fr auto;
     align-items: center;
+    row-gap: $spacing-small-4x;
   }
 }
 
 .DefaultLayout__logo {
-  width: fit-content;
+  width: auto;
   height: 40px;
 }
 
@@ -54,7 +57,11 @@
   margin-right: auto;
   grid-area: mopus;
   height: $header-height;
-  width: fit-content;
+}
+
+.DefaultLayout__logo_mopus {
+  width: auto;
+  height: 100%;
 }
 
 .DefaultLayout__logo_cp {
