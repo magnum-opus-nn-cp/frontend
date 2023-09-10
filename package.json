@@ -41,6 +41,7 @@
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
+    "rimraf": "^5.0.1",
     "sanitize.css": "^13.0.0",
     "sass": "^1.66.1",
     "ts-key-enum": "^2.0.12",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rimraf build press-release-cp.zip && react-scripts build && zip -r press-release-cp.zip build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
