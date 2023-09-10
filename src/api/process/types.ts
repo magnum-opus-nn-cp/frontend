@@ -5,7 +5,7 @@ export type DetailDescriptor = {
   features: DetailFeatures;
 };
 
-export type ScoreType = 'bert' | 'f' | 'nearest';
+export type ScoreType = 'bert' | 'f' | 'nearest' | 'total';
 
 export type ScoreDescriptor = {
   [key in ScoreType]: {

@@ -62,6 +62,10 @@
   td {
     @include transition(border-color, color);
 
+    &.ResponsePage__result {
+      font-weight: $font-weight-medium;
+    }
+
     &.ResponsePage__tableSummary {
       //@include transition(opacity);
       //opacity: 0;

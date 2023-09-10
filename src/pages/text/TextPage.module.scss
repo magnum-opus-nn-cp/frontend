@@ -25,6 +25,12 @@
   line-height: $line-height-20;
 }
 
+.TextPage__prop_total {
+  font-size: $font-size-16;
+  line-height: $line-height-24;
+  font-weight: $font-weight-600;
+}
+
 .TextPage__tooltip {
   display: inline-block;
 }

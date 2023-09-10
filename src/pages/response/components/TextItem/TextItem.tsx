@@ -67,6 +67,12 @@ export const TextItem: ReactFCC<TextItemProps> = (props) => {
         </Text>
       </div>
 
+      <div className={s.TextItem__row}>
+        <Text component={'span'} variant={ETextVariants.PROGRAMMING_CODE_REGULAR}>
+          Итоговая оценка: {text.score.total as unknown as string}
+        </Text>
+      </div>
+
       <div className={clsx(s.TextItem__row, s.TextItem__row_link)}>
         <Text component={'span'} variant={ETextVariants.BODY_S_REGULAR}>
           <Link

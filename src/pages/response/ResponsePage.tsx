@@ -69,7 +69,7 @@ export const ResponsePage: FC = () => {
                 <th>Нейросетевой метод</th>
                 <th>Статистический метод</th>
                 <th>Метод схожести</th>
-                {/*<th>Рез.</th>*/}
+                <th>Итоговая оценка</th>
                 <th>Крат. сод.</th>
               </tr>
             </thead>
@@ -112,6 +112,7 @@ export const ResponsePage: FC = () => {
                       </>
                     )}
                   </td>
+                  <td className={s.ResponsePage__result}>{text.score.total as unknown as string}</td>
                   <td className={s.ResponsePage__tableSummary}>
                     <Link
                       component={'button'}

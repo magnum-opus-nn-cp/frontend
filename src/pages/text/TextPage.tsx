@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import clsx from 'clsx';
 import { Heading, HeadingSize } from '../../components/Heading';
 import { useUrlParam } from '../../hooks/useUrlParam';
 import { TEXT_PAGE_PARAM } from '../../app/routes';
@@ -210,6 +211,13 @@ export const TextPage: FC = () => {
                   </span>
                 </>
               )}
+            </Text>
+
+            <Text
+              component={'div'}
+              className={clsx(s.TextPage__prop, s.TextPage__prop_total)}
+              variant={ETextVariants.PROGRAMMING_CODE_MEDIUM}>
+              Итоговая оценка: {textEntity.score.total as unknown as string}
             </Text>
           </div>
 
