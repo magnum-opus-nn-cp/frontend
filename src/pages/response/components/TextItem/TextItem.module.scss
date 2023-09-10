@@ -30,7 +30,6 @@
 }
 
 .TextItem__name {
-  //font-size: $font-size-18;
   text-transform: uppercase;
   font-weight: $font-weight-600;
   white-space: nowrap;
@@ -39,4 +38,8 @@
 .TextItem__row_link {
   margin-top: $spacing-small-3x;
   margin-bottom: 0;
+}
+
+.TextItem__text600 {
+  font-weight: $font-weight-600;
 }
